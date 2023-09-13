@@ -28,7 +28,7 @@ gem "stimulus-rails"
 gem "jbuilder"
 
 # Ruby linting and formatting
-gem 'standard', '~> 1.31', '>= 1.31.1'
+gem "standard", "~> 1.31", ">= 1.31.1"
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
