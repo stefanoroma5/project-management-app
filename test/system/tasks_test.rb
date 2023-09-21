@@ -19,7 +19,7 @@ class TasksTest < ApplicationSystemTestCase
     fill_in "Estimation", with: @task.estimation
     fill_in "Priority", with: @task.priority
     fill_in "Start date", with: @task.start_date
-    fill_in "State", with: @task.state
+    fill_in "Status", with: @task.status
     fill_in "Title", with: @task.title
     fill_in "Task type", with: @task.task_type
     click_on "Create Task"
@@ -37,7 +37,7 @@ class TasksTest < ApplicationSystemTestCase
     fill_in "Estimation", with: @task.estimation
     fill_in "Priority", with: @task.priority
     fill_in "Start date", with: @task.start_date
-    fill_in "State", with: @task.state
+    fill_in "status", with: @task.status
     fill_in "Title", with: @task.title
     fill_in "Task type", with: @task.task_type
     click_on "Update Task"

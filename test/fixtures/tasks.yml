@@ -3,7 +3,7 @@
 one:
   start_date: 2023-08-16
   end_date: 2023-08-16
-  state: MyString
+  status: MyString
   description: MyString
   task_type: MyString
   estimation: 1
@@ -13,7 +13,7 @@ one:
 two:
   start_date: 2023-08-16
   end_date: 2023-08-16
-  state: MyString
+  status: MyString
   description: MyString
   task_type: MyString
   estimation: 1

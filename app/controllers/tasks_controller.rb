@@ -65,6 +65,6 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:start_date, :end_date, :state, :description, :task_type, :estimation, :priority, :title)
+      params.require(:task).permit(:start_date, :end_date, :status, :description, :task_type, :estimation, :priority, :title)
     end
 end
