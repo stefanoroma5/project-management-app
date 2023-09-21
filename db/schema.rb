@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_16_223723) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_21_213257) do
   create_table "developers", force: :cascade do |t|
     t.string "name"
     t.string "lastname"
@@ -41,7 +41,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_16_223723) do
   create_table "tasks", force: :cascade do |t|
     t.date "start_date"
     t.date "end_date"
-    t.string "state"
+    t.string "status"
     t.string "description"
     t.string "task_type"
     t.integer "estimation"
