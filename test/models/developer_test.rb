@@ -10,7 +10,7 @@ class DeveloperTest < ActiveSupport::TestCase
   end
 
   test "developer should be created" do
-    assert Developer.new(name: "Mario", lastname: "Rossi", email: "mario.rossi@test.com", password: "password").valid?
+    assert Developer.new(name: "Mario", lastname: "Rossi", email: "mario.rossi@test.com", password: "Pass$word1").valid?
   end
 
 end

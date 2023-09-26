@@ -6,7 +6,7 @@ class Project < ApplicationRecord
     comparison: {greater_than: :start_date}
   validates :customer,
     presence: true,
-    format: {with: /\A[a-zA-Z]+\z/, message: "only allows letters"}
+    format: {with: /\A[a-zA-Z\s]+\z/, message: "only allows letters and spaces"}
   validates :description,
     presence: true
   validates :start_date,
