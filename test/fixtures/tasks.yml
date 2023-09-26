@@ -1,8 +1,8 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  start_date: 2023-08-16
-  end_date: 2024-08-16
+  start_date: 2025-08-16
+  end_date: 2026-08-16
   status: Unstarted
   description: Add new table to landing page using material design
   task_type: Feature
@@ -11,8 +11,8 @@ one:
   title: Add new table
 
 two:
-  start_date: 2023-08-16
-  end_date: 2025-08-16
+  start_date: 2025-08-16
+  end_date: 2026-08-16
   status: Started
   description: Fix bug when opening a new table in landing page
   task_type: Bug
