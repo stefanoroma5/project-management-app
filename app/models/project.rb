@@ -1,4 +1,9 @@
 class Project < ApplicationRecord
+
+  belongs_to :developer
+  has_many :task
+  has_and_belongs_to_many :developers
+
   validates :title,
     presence: true
   validates :deadline,
