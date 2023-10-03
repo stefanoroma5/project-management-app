@@ -10,30 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_27_073946) do
-  create_table "developers", force: :cascade do |t|
-    t.string "name"
-    t.string "lastname"
-    t.string "email"
-    t.string "password"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "developers_projects", id: false, force: :cascade do |t|
-    t.integer "developer_id", null: false
-    t.integer "project_id", null: false
-    t.index ["developer_id", "project_id"], name: "index_developers_projects_on_developer_id_and_project_id"
-    t.index ["project_id", "developer_id"], name: "index_developers_projects_on_project_id_and_developer_id"
-  end
-
-  create_table "developers_tasks", id: false, force: :cascade do |t|
-    t.integer "developer_id", null: false
-    t.integer "task_id", null: false
-    t.index ["developer_id", "task_id"], name: "index_developers_tasks_on_developer_id_and_task_id"
-    t.index ["task_id", "developer_id"], name: "index_developers_tasks_on_task_id_and_developer_id"
-  end
-
+ActiveRecord::Schema[7.0].define(version: 2023_10_03_101139) do
   create_table "labels", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
