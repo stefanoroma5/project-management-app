@@ -11,6 +11,12 @@
   </head>
 
   <body>
+
+    <!--The yeld tag will be replaced with the contente of the p tag notice 
+      and/or alert that are needed by Devise for communicating messages like 
+      "Incorrect password"-->
+    <p class="notice"><%= notice %></p> 
+    <p class="alert"><%= alert %></p>
     <%= yield %>
   </body>
 </html>
