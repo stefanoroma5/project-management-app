@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_04_074741) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_04_082511) do
   create_table "developers", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -23,6 +23,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_04_074741) do
     t.string "lastname"
     t.index ["email"], name: "index_developers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_developers_on_reset_password_token", unique: true
+  end
+
+  create_table "developers_projects", id: false, force: :cascade do |t|
+    t.integer "developer_id", null: false
+    t.integer "project_id", null: false
+    t.index ["developer_id", "project_id"], name: "index_developers_projects_on_developer_id_and_project_id"
+    t.index ["project_id", "developer_id"], name: "index_developers_projects_on_project_id_and_developer_id"
   end
 
   create_table "labels", force: :cascade do |t|

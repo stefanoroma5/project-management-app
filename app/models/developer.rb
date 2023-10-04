@@ -5,4 +5,5 @@ class Developer < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_one :project
+  has_and_belongs_to_many :projects
 end
