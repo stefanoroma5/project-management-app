@@ -6,4 +6,5 @@ class Developer < ApplicationRecord
 
   has_one :project
   has_and_belongs_to_many :projects
+  has_and_belongs_to_many :tasks
 end
