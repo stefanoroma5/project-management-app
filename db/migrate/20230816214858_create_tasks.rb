@@ -9,6 +9,7 @@ class CreateTasks < ActiveRecord::Migration[7.0]
       t.integer :estimation
       t.string :priority
       t.string :title
+      t.belongs_to :project, foreign_key: true
 
       t.timestamps
     end
