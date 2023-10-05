@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :developers
+  devise_for :developers, :controllers => { registrations: 'developers/registrations' }
 
   resources :labels
   resources :tasks
