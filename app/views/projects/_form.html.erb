@@ -33,7 +33,7 @@
 
   <div>
     <%= form.label :status, style: "display: block" %>
-    <%= form.text_field :status %>
+    <%= form.select :status, [['Please, select an option', nil], 'Unstarted', 'Started', 'Finished']%>
   </div>
 
   <div>

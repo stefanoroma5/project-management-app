@@ -7,20 +7,13 @@ class Project < ApplicationRecord
   validates :title,
     presence: true
   validates :deadline,
-    presence: true,
-    comparison: {greater_than: :start_date}
+    presence: true
   validates :customer,
     presence: true,
     format: {with: /\A[a-zA-Z\s]+\z/, message: "only allows letters and spaces"}
   validates :description,
     presence: true
-  validates :start_date,
-    presence: true,
-    comparison: {less_than: :deadline}
-  validates :end_date,
-    presence: true,
-    comparison: {greater_than: :start_date}
-  validate :start_date_cannot_be_in_the_past, :end_date_cannot_be_in_the_past, :deadline_cannot_be_in_the_past
+  validate :start_date_cannot_be_in_the_past, :end_date_cannot_be_in_the_past, :deadline_cannot_be_in_the_past, :start_date_has_to_be_smaller_than_deadline, :end_date_has_to_be_greater_than_start_date
 
   def start_date_cannot_be_in_the_past
     if start_date.present? && start_date < Date.today
@@ -37,6 +30,18 @@ class Project < ApplicationRecord
   def deadline_cannot_be_in_the_past
     if deadline.present? && deadline < Date.today
       errors.add(:deadline, "can't be in the past")
+    end
+  end
+
+  def start_date_has_to_be_smaller_than_deadline
+    if start_date.present? && deadline < start_date
+      errors.add(:start_date, "can't be after deadline")
+    end
+  end
+
+  def end_date_has_to_be_greater_than_start_date
+    if end_date.present? && start_date > end_date
+      errors.add(:end_date, "can't be earlier than start date")
     end
   end
 
