@@ -23,6 +23,9 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
 
+    # metto l'id dell'utente loggato nel campo developer_di project come chiave esterna
+    @project.developer_id = current_developer.id
+
     respond_to do |format|
       if @project.save
         format.html { redirect_to project_url(@project), notice: "Project was successfully created." }

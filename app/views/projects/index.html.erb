@@ -2,6 +2,8 @@
 
 <h1>Projects</h1>
 
+<div> Welcome <%= current_developer.email %> </div> 
+
 <div id="projects">
   <% @projects.each do |project| %>
     <%= render project %>
