@@ -2,8 +2,9 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: %i[ show edit update destroy ]
 
   # GET /projects or /projects.json
+  # GET /projects?developer=
   def index
-    @projects = Project.all
+    @projects = Project.owner(current_developer.id)
   end
 
   # GET /projects/1 or /projects/1.json

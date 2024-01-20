@@ -48,4 +48,5 @@ class Project < ApplicationRecord
   scope :unstarted, -> { where(status: "Unstarted") }
   scope :started, -> { where(status: "Started") }
   scope :finished, -> { where(status: "Finished") }
+  scope :owner, ->(*args) { where("developer_id = ?", args.first) }
 end
