@@ -4,6 +4,20 @@
     <%= project.title %>
   </p>
 
+  <% if current_developer.id == project.developer_id %> 
+    <div>
+      <p>
+        You are the Project manager
+      </p> 
+    </div> 
+  <% else %>
+    <div>
+      <p>
+        You are a collaborator
+      </p> 
+    </div>
+  <% end %>
+
   <p>
     <strong>Deadline:</strong>
     <%= project.deadline %>

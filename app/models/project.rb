@@ -49,4 +49,5 @@ class Project < ApplicationRecord
   scope :started, -> { where(status: "Started") }
   scope :finished, -> { where(status: "Finished") }
   scope :owner, ->(*args) { where("developer_id = ?", args.first) }
+  scope :collaborator, ->(*args) { where("projects.id = developers_projects.project_id & developers_projects.developer_id = ?", args.first) }
 end

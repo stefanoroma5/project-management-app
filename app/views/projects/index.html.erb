@@ -1,8 +1,19 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Projects</h1>
+<% if(params[:mode].eql? "m") %> 
+    <h1>Projects you manage</h1>
+  <% else %>
+    <h1>Projects in which you collaborate</h1>
+  <% end %>
 
 <div> Welcome <%= current_developer.name %> </div> 
+
+<% if(params[:mode].eql? "m")%>
+  <%= link_to "Show projects you collaborate for", "http://127.0.0.1:3000/projects?mode=c"%> 
+<% end%>
+<% if(params[:mode].eql? "c")%>
+    <%= link_to "Show projects you manage", "http://127.0.0.1:3000/projects?mode=m"%> 
+<% end%>
 
 <div id="projects">
   <% @projects.each do |project| %>

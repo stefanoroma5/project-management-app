@@ -5,7 +5,7 @@ class Developers::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_account_update_params, only: [:update]
 
   def after_sign_up_path_for(resource)
-    "http://127.0.0.1:3000/projects"
+    "http://127.0.0.1:3000/projects?mode=m"
   end
 
   # GET /resource/sign_up

@@ -2,9 +2,15 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: %i[ show edit update destroy ]
 
   # GET /projects or /projects.json
-  # GET /projects?developer=
+  # GET /projects?mode=m
+  # GET /projects?mode=c
   def index
-    @projects = Project.owner(current_developer.id)
+    if(params[:mode].eql? "m")
+      @projects = Project.owner(current_developer.id)
+    end
+    if(params[:mode].eql? "c")
+      @projects = Project.joins(:developers_projects).where("developers_projects.developer_id = ?", current_developer.id)
+    end
   end
 
   # GET /projects/1 or /projects/1.json
