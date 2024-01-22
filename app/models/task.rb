@@ -1,5 +1,4 @@
 class Task < ApplicationRecord
-
   belongs_to :project
   has_and_belongs_to_many :developers
   has_and_belongs_to_many :labels
@@ -36,5 +35,10 @@ class Task < ApplicationRecord
 
   scope :p1, -> { where(priority: "P1") }
   scope :p2, -> { where(priority: "P2") }
-  scope :p1, -> { where(priority: "P3") }
+  scope :p3, -> { where(priority: "P3") }
+
+  scope :recent, ->(*args) {
+                   where("start_date > ?",
+                     (args.first || 2.weeks.ago))
+                 }
 end

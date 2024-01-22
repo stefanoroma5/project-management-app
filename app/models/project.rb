@@ -1,5 +1,4 @@
 class Project < ApplicationRecord
-
   belongs_to :developer
   has_many :task
   has_and_belongs_to_many :developers
@@ -48,6 +47,14 @@ class Project < ApplicationRecord
   scope :unstarted, -> { where(status: "Unstarted") }
   scope :started, -> { where(status: "Started") }
   scope :finished, -> { where(status: "Finished") }
+
+  scope :recent, ->(*args) {
+                   where("start_date > ?",
+                     (args.first || 2.weeks.ago))
+                 }
+
+  scope :overdue, -> { where(status: "Started").where("deadline < ?", Date.today) }
+
   scope :owner, ->(*args) { where("developer_id = ?", args.first) }
   scope :collaborator, ->(*args) { where("projects.id = developers_projects.project_id & developers_projects.developer_id = ?", args.first) }
 end
