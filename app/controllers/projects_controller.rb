@@ -15,6 +15,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1 or /projects/1.json
   def show
+    @developers = Developer.joins(:developers_projects).where("developers_projects.project_id = ?", params[:id])
   end
 
   # GET /projects/new

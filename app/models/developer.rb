@@ -5,9 +5,10 @@ class Developer < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_one :project
-  has_and_belongs_to_many :projects
+  
   has_and_belongs_to_many :tasks
-
+  has_many :developer_projects
+  has_many :projects, through: :developer_projects
   validates :name,
     presence: true,
     format: {with: /\A[a-zA-Z]+\z/, message: "only allows letters"}

@@ -2,6 +2,42 @@
 
 <%= render @project %>
 
+<div id="collaborators">
+  <p>
+    <strong>Collaborators</strong>
+  </p>
+
+  <% @developers.each do |developer| %>
+    <p>
+      <strong>Email:</strong>
+      <%= developer.email %>
+    </p>
+  <% end %>
+
+  <%= form_with(model: developer_project) do |form| %>
+      <% if developer_project.errors.any? %>
+        <div style="color: red">
+          <h2><%= pluralize(developer_project.errors.count, "error") %> prohibited this developer_project from being saved:</h2>
+
+          <ul>
+            <% developer_project.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div>
+        <%= form.label :email, style: "display: block" %>
+        <%= form.text_field :email %>
+      </div>
+  
+      <div>
+        <%= form.submit %>
+      </div>
+    <% end %>
+</div>
+
 <div>
   <%= link_to "Edit this project", edit_project_path(@project) %> |
   <%= link_to "Back to projects", "http://127.0.0.1:3000/projects?mode=m" %> |
