@@ -2,7 +2,7 @@ class Developer < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+    :recoverable, :rememberable, :validatable
 
   has_one :project
   
@@ -40,11 +40,16 @@ class Developer < ApplicationRecord
     special = "?<>',?[]}{=-)(*&^%$#`~{}!"
     regex = /[#{special.gsub(/./) { |char| "\\#{char}" }}]/
     return if password&.match?(regex)
-    errors.add :password, " must contain special character"
+    errors.add :password, " must contain special character from ?<>',?[]}{=-)(*&^%$#`~{}!"
   end
 
   def password_contains_number
     return if password && password.count("0-9") > 0
     errors.add :password, " must contain at least one number"
   end
+
+  scope :recent, ->(*args) {
+    where("created_at > ?",
+      (args.first || 2.weeks.ago))
+  }
 end
