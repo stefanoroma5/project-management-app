@@ -9,13 +9,14 @@ class ProjectsController < ApplicationController
       @projects = Project.owner(current_developer.id)
     end
     if(params[:mode].eql? "c")
+      #da modificare la joi e metterla come scope
       @projects = Project.joins(:developers_projects).where("developers_projects.developer_id = ?", current_developer.id)
     end
   end
 
   # GET /projects/1 or /projects/1.json
   def show
-    @developers = Developer.joins(:developers_projects).where("developers_projects.project_id = ?", params[:id])
+    @developers = Developer.collaborator(params[:id])
   end
 
   # GET /projects/new

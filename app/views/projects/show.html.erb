@@ -2,6 +2,8 @@
 
 <%= render @project %>
 
+<!-- Sezione per visualizzare i collaboratori -->
+
 <div id="collaborators">
   <p>
     <strong>Collaborators</strong>
@@ -14,6 +16,7 @@
     </p>
   <% end %>
 
+  <!-- FORM PER AGGIUNGERE COLLABORATORI -->
   <%= form_with(model: developer_project) do |form| %>
       <% if developer_project.errors.any? %>
         <div style="color: red">
@@ -31,12 +34,15 @@
         <%= form.label :email, style: "display: block" %>
         <%= form.text_field :email %>
       </div>
-  
+
       <div>
         <%= form.submit %>
       </div>
     <% end %>
+
 </div>
+
+<!-- Fine sezione per visualizzare i collaboratori -->
 
 <div>
   <%= link_to "Edit this project", edit_project_path(@project) %> |
