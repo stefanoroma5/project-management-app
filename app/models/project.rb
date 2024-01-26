@@ -57,5 +57,5 @@ class Project < ApplicationRecord
   scope :overdue, -> { where(status: "Started").where("deadline < ?", Date.today) }
 
   scope :owner, ->(*args) { where("developer_id = ?", args.first) }
-  scope :collaborator, ->(*args) { where("projects.id = developers_projects.project_id & developers_projects.developer_id = ?", args.first) }
+  scope :collaborate, ->(*args) {Project.joins(:developer_projects).where("developer_projects.developer_id = ?", args.first)}
 end

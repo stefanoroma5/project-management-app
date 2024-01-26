@@ -53,5 +53,5 @@ class Developer < ApplicationRecord
       (args.first || 2.weeks.ago))
   }
 
-  scope :collaborator, ->(*args) {Developer.joins(:developer_projects).where("developer_projects.project_id = ? & developers.id = developer_projects.developer_id", args.first)}
+  scope :collaborators, ->(*args) {Developer.joins(:developer_projects).where("developer_projects.project_id = ?", args.first)}
 end
