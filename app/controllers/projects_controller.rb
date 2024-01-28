@@ -17,6 +17,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1 or /projects/1.json
   def show
     @developers = Developer.collaborators(params[:id])
+    @developer_project = DeveloperProject.new
   end
 
   # GET /projects/new
@@ -26,6 +27,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
+  
   end
 
   # POST /projects or /projects.json

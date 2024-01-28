@@ -16,12 +16,24 @@
     </p>
   <% end %>
 
-  <!-- FORM PER AGGIUNGERE COLLABORATORI -->
-  
+  <!-- FORM PER AGGIUNGERE UN COLLABORATORE -->
+  <h3>Add a collaborator to this project</h3>
+  <%= form_for @developer_project do |form| %>
+    <div>
+      <%= form.label :email, style: "display: block" %>
+      <%= form.text_field :email %>
+    </div>
+
+    <div>
+      <%= form.submit "Add collaborator"%>
+    </div>
+  <% end %>
 
 </div>
 
 <!-- Fine sezione per visualizzare i collaboratori -->
+
+<br>
 
 <div>
   <%= link_to "Edit this project", edit_project_path(@project) %> |
