@@ -1,4 +1,5 @@
 class DeveloperProjectsController < ApplicationController
+  before_action :set_developer_project, only: %i[ edit update destroy ]
 
     # GET /developer_projects/new
   def new
@@ -11,17 +12,17 @@ class DeveloperProjectsController < ApplicationController
 
   # POST /developer_projects or /developer_projects.json
   def create
-    @developer = Developer.find_by(developer_project_params.email)
-    @project = Project.find(params[:id])
-    @developer_project = DeveloperProject.new(developer_id: @developer.id, project_id: @project.id, email: @developer.email)
+    developer = Developer.find_by(email: params["email"])
+    project = Project.find(params["project_id"])
+    @developer_project = DeveloperProject.new(developer_id: developer.id, project_id: project.id, email: developer.email)
 
     respond_to do |format|
       if @developer_project.save
-        format.html { redirect_to project_url(@project), notice: "Collaborator was successfully added." }
-        format.json { render :show, status: :created, location: @project }
+        format.html { redirect_to project_url(project), notice: "Collaborator was successfully added." }
+        format.json { render :show, status: :created, location: project }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
+        format.json { render json: project.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -35,5 +36,11 @@ class DeveloperProjectsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_developer_project
+      @developer_project = DeveloperProject.find(params[:id])
+    end
 
 end

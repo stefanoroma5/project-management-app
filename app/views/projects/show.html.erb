@@ -21,7 +21,8 @@
   <%= form_for @developer_project do |form| %>
     <div>
       <%= form.label :email, style: "display: block" %>
-      <%= form.text_field :email %>
+      <%= text_field_tag "email" %>
+      <%= hidden_field_tag "project_id", @project.id %>
     </div>
 
     <div>
