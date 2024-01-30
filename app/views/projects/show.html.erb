@@ -9,11 +9,25 @@
     <strong>Collaborators</strong>
   </p>
 
-  <% @developers.each do |developer| %>
-    <p>
-      <strong>Email:</strong>
-      <%= developer.email %>
-    </p>
+  <!-- FORM PER CAMBIARE LO STATO DI UN COLLABORATORE -->
+  <% @developer_projects.each do |developer_project| %>
+    <%= form_with(model: developer_project) do |form| %>
+      <div>
+        <p>
+          <strong>Email:</strong>
+          <%= developer_project.email %>
+          <br>
+          <strong>Status:</strong>
+          <%= developer_project.status %>
+          <%= hidden_field_tag "project_id", @project.id %>
+          <%= hidden_field_tag "developer_id", developer_project.developer_id %>
+          <%= hidden_field_tag "email", developer_project.email %>
+          <%= select_tag "status", options_for_select([['Please, select an option', nil], "Active", "Inactive" ])%>
+          <%= form.submit "Change status collaborator"%>
+        </p>
+      </div>
+    <% end %>
+    
   <% end %>
 
   <!-- FORM PER AGGIUNGERE UN COLLABORATORE -->

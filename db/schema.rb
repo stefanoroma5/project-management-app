@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_28_170418) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_30_102904) do
   create_table "developer_projects", force: :cascade do |t|
     t.integer "developer_id", null: false
     t.integer "project_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email"
+    t.string "status"
     t.index ["developer_id"], name: "index_developer_projects_on_developer_id"
     t.index ["project_id"], name: "index_developer_projects_on_project_id"
   end

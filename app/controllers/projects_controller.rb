@@ -17,6 +17,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1 or /projects/1.json
   def show
     @developers = Developer.collaborators(params[:id])
+    @developer_projects = DeveloperProject.where(project_id: params[:id])
     @developer_project = DeveloperProject.new
   end
 
