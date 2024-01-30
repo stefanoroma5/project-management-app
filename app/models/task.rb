@@ -1,8 +1,9 @@
 class Task < ApplicationRecord
   belongs_to :project
-  has_and_belongs_to_many :labels
   has_many :developer_tasks
   has_many :developers, through: :developer_tasks
+  has_many :tasks_labels
+  has_many :labels, through: :tasks_labels
 
   validates :description,
     presence: true
