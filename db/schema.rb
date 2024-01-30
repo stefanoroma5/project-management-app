@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_30_163411) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_30_172759) do
   create_table "developer_projects", force: :cascade do |t|
     t.integer "developer_id", null: false
     t.integer "project_id", null: false
@@ -50,13 +50,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_30_163411) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "labels_tasks", id: false, force: :cascade do |t|
-    t.integer "label_id", null: false
-    t.integer "task_id", null: false
-    t.index ["label_id", "task_id"], name: "index_labels_tasks_on_label_id_and_task_id"
-    t.index ["task_id", "label_id"], name: "index_labels_tasks_on_task_id_and_label_id"
-  end
-
   create_table "projects", force: :cascade do |t|
     t.string "title"
     t.date "deadline"
@@ -83,8 +76,19 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_30_163411) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "tasks_labels", force: :cascade do |t|
+    t.integer "task_id", null: false
+    t.integer "label_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["label_id"], name: "index_tasks_labels_on_label_id"
+    t.index ["task_id"], name: "index_tasks_labels_on_task_id"
+  end
+
   add_foreign_key "developer_projects", "developers"
   add_foreign_key "developer_projects", "projects"
   add_foreign_key "developer_tasks", "developers"
   add_foreign_key "developer_tasks", "tasks"
+  add_foreign_key "tasks_labels", "labels"
+  add_foreign_key "tasks_labels", "tasks"
 end
