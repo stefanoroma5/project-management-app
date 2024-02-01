@@ -1,7 +1,41 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: frontend
+label1:
+  name: label1
+  # has_many
+  tasks: task1, task5
 
-two:
-  name: backend
+label2:
+  name: label2
+  # has_many
+  tasks: task2, task6
+
+label3:
+  name: label3
+  # has_many
+  tasks: task3, task7
+
+label4:
+  name: label4
+  # has_many
+  tasks: task4, task8
+
+label5:
+  name: label5
+  # has_many
+  tasks: task1, task5
+
+label6:
+  name: label6
+  # has_many
+  tasks: task2, task6
+
+label7:
+  name: label7
+  # has_many
+  tasks: task3, task7
+
+label8:
+  name: label8
+  # has_many
+  tasks: task4, task8

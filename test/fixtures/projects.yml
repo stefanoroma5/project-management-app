@@ -1,17 +1,57 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+project1:
   title: Project1
   deadline: 2028-08-14
-  customer: Luca Rossi Verdi
+  customer: customer1
   description: This project is really cool
   start_date: 2025-08-14
   end_date: 2026-06-14
+  status: Started
+  # belongs_to
+  developer: developer1
+  # has_many
+  developers: developer1, developer5
+  tasks: task1, task5        
 
-two:
+project2:
   title: Project2
   deadline: 2028-08-14
-  customer: Mario Verdi Rossi
+  customer: customer2
   description: This project is really bad
   start_date: 2025-01-14
   end_date: 2026-09-14
+  status: Unstarted
+  # belongs_to
+  developer: developer2
+  # has_many
+  developers: developer2, developer6
+  tasks: task2, task6
+
+project3:
+  title: Project3
+  deadline: 2028-08-14
+  customer: customer3
+  description: This project is useful
+  start_date: 2025-01-14
+  end_date: 2026-09-14
+  status: Unstarted
+  # belongs_to
+  developer: developer3
+  # has_many
+  developers: developer3, developer7
+  tasks: task3, task7
+
+project4:
+  title: Project4
+  deadline: 2028-08-14
+  customer: customer4
+  description: This project is useless
+  start_date: 2025-01-14
+  end_date: 2026-09-14
+  status: Finished
+  # belongs_to
+  developer: developer4
+  # has_many
+  developers: developer4, developer8
+  tasks: task4, task8
