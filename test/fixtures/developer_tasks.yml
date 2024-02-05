@@ -1,0 +1,7 @@
+developer_task_one:
+  developer: john_doe
+  task: task_one
+
+developer_task_two:
+  developer: jane_doe
+  task: task_two

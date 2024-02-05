@@ -1,93 +1,11 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+john_doe:
+  email: john@example.com
+  encrypted_password: <%= Devise::Encryptor.digest(Developer, 'password123') %>
+  name: John
+  lastname: Doe
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the "{}" from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-
-### Developer che hanno creato dei progetti (capo e collaboratore)###
-developer1:
-  email: test1@example.com
-  encrypted_password: Pas$word1
-  name: name1
-  lastname: lastname1
-  # has_one
-  project: project1   
-  # has_many     
-  projects: project1
-  tasks: task1
-
-developer2:
-  email: test2@example.com
-  encrypted_password: Pas$word1
-  name: name2
-  lastname: lastname2
-  # has_one
-  project: project2
-  # has_many     
-  projects: project2
-  tasks: task2
-
-developer3:
-  email: test3@example.com
-  encrypted_password: Pas$word1
-  name: name3
-  lastname: lastname3
-  # has_one
-  project: project3   
-  # has_many     
-  projects: project3
-  tasks: task3
-
-developer4:
-  email: test4@example.com
-  encrypted_password: Pas$word1
-  name: name4
-  lastname: lastname4
-  # has_one
-  project: project4   
-  # has_many     
-  projects: project4
-  tasks: task4
-
-### Developer che sono solo collaboratori ###
-
-developer5:
-  email: test5@example.com
-  encrypted_password: Pas$word1
-  name: name5
-  lastname: lastname5
-  # has_one
-  project: project1
-  # has_many
-  tasks: task5
-
-developer6:
-  email: test6@example.com
-  encrypted_password: Pas$word1
-  name: name6
-  lastname: lastname6
-  # has_one
-  project: project2
-  # has_many
-  tasks: task6
-
-developer7:
-  email: test7@example.com
-  encrypted_password: Pas$word1
-  name: name7
-  lastname: lastname7
-  # has_one
-  project: project3   
-  # has_many
-  tasks: task7
-
-developer8:
-  email: test8@example.com
-  encrypted_password: Pas$word1
-  name: name8
-  lastname: lastname8
-  # has_one
-  project: project4   
-  # has_many
-  tasks: task8
+jane_doe:
+  email: jane@example.com
+  encrypted_password: <%= Devise::Encryptor.digest(Developer, 'password123') %>
+  name: Jane
+  lastname: Doe

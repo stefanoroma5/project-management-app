@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_30_172759) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_05_213334) do
   create_table "developer_projects", force: :cascade do |t|
     t.integer "developer_id", null: false
     t.integer "project_id", null: false
@@ -75,6 +75,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_30_172759) do
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "project_id"
   end
 
   create_table "tasks_labels", force: :cascade do |t|

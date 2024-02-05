@@ -1,121 +1,21 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+task_one:
+  start_date: <%= Date.today %>
+  end_date: <%= Date.today + 15.days %>
+  status: "ongoing"
+  description: "Task one description."
+  task_type: "development"
+  estimation: 5
+  priority: "high"
+  title: "Task One"
+  project: project_one
 
-task1:
-  start_date: 2025-08-16
-  end_date: 2026-08-16
-  status: Unstarted
-  description: description 1
-  task_type: Feature
-  estimation: 1
-  priority: P1
-  title: title 1
-  # belongs_to
-  project: project1
-  # has_many
-  developers: developer1
-  labels: label1, label5
-
-task2:
-  start_date: 2025-08-16
-  end_date: 2026-08-16
-  status: Started
-  description: description 2
-  task_type: Bug
-  estimation: 2
-  priority: P1
-  title: title 2
-  # belongs_to
-  project: project2
-  # has_many
-  developers: developer2
-  labels: label2, label6
-
-task3:
-  start_date: 2025-08-16
-  end_date: 2026-08-16
-  status: Unstarted
-  description: description 3
-  task_type: Chore
-  estimation: 4
-  priority: P2
-  title: title 3
-  # belongs_to
-  project: project3
-  # has_many
-  developers: developer3
-  labels: label3, label7
-
-task4:
-  start_date: 2025-08-16
-  end_date: 2026-08-16
-  status: Finished
-  description: description 4
-  task_type: Bug
-  estimation: 2
-  priority: P3
-  title: title 4
-  # belongs_to
-  project: project4
-  # has_many
-  developers: developer4
-  labels: label4, label8
-
-task5:
-  start_date: 2025-08-16
-  end_date: 2026-08-16
-  status: Unstarted
-  description: description 5
-  task_type: Feature
-  estimation: 1
-  priority: P1
-  title: title 5
-  # belongs_to
-  project: project1
-  # has_many
-  developers: developer5
-  labels: label1, label5
-
-task6:
-  start_date: 2025-08-16
-  end_date: 2026-08-16
-  status: Started
-  description: description 6
-  task_type: Bug
-  estimation: 2
-  priority: P1
-  title: title 6
-  # belongs_to
-  project: project2
-  # has_many
-  developers: developer6
-  labels: label2, label6
-
-task7:
-  start_date: 2025-08-16
-  end_date: 2026-08-16
-  status: Unstarted
-  description: description 7
-  task_type: Chore
-  estimation: 4
-  priority: P2
-  title: title 7
-  # belongs_to
-  project: project3
-  # has_many
-  developers: developer7
-  labels: label3, label7
-
-task8:
-  start_date: 2025-08-16
-  end_date: 2026-08-16
-  status: Finished
-  description: description 8
-  task_type: Bug
-  estimation: 2
-  priority: P3
-  title: title 8
-  # belongs_to
-  project: project4
-  # has_many
-  developers: developer8
-  labels: label4, label8
+task_two:
+  start_date: <%= Date.today + 1.day %>
+  end_date: <%= Date.today + 10.days %>
+  status: "pending"
+  description: "Task two description."
+  task_type: "testing"
+  estimation: 3
+  priority: "medium"
+  title: "Task Two"
+  project: project_two
