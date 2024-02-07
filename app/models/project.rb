@@ -2,7 +2,7 @@ class Project < ApplicationRecord
   belongs_to :developer
   has_many :task
   has_many :developer_projects
-  has_many :developer, through: :developer_projects
+  has_many :developers, through: :developer_projects
 
   validates :title,
     presence: true
