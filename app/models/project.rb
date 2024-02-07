@@ -1,6 +1,6 @@
 class Project < ApplicationRecord
   belongs_to :developer
-  has_many :task
+  has_many :tasks
   has_many :developer_projects
   has_many :developers, through: :developer_projects
 
@@ -34,13 +34,13 @@ class Project < ApplicationRecord
   end
 
   def start_date_has_to_be_smaller_than_deadline
-    if start_date.present? && deadline < start_date
+    if start_date.present? && deadline.present? && deadline < start_date
       errors.add(:start_date, "can't be after deadline")
     end
   end
 
   def end_date_has_to_be_greater_than_start_date
-    if end_date.present? && start_date > end_date
+    if start_date.present? && end_date.present? && start_date > end_date
       errors.add(:end_date, "can't be earlier than start date")
     end
   end
