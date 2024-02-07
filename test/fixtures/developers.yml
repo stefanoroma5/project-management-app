@@ -9,3 +9,9 @@ jane_doe:
   encrypted_password: <%= Devise::Encryptor.digest(Developer, 'password123') %>
   name: Jane
   lastname: Doe
+
+another_developer:
+  email: another@example
+  encrypted_password: <%= Devise::Encryptor.digest(Developer, 'password123') %>
+  name: Another
+  lastname: Developer

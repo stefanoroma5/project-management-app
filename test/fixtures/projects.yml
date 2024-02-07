@@ -5,7 +5,7 @@ project_one:
   description: "An important project."
   start_date: <%= Date.today %>
   end_date: <%= Date.today + 60.days %>
-  status: "active"
+  status: "Unstarted"
   developer: john_doe
 
 project_two:
@@ -15,5 +15,35 @@ project_two:
   description: "Another crucial project."
   start_date: <%= Date.today %>
   end_date: <%= Date.today + 90.days %>
-  status: "planning"
+  status: "Started"
   developer: jane_doe
+
+project_three:
+  title: "Project Three"
+  deadline: <%= Date.today + 5.days %>
+  customer: "Beta Inc"
+  description: "Another crucial project."
+  start_date: <%= Date.today %>
+  end_date: <%= Date.today + 90.days %>
+  status: "Finished"
+  developer: another_developer
+
+project_four:
+  title: "Project Four"
+  deadline: <%= Date.today - 1.days %>
+  customer: "Beta Inc"
+  description: "Another crucial project."
+  start_date: <%= Date.today - 10.days %>
+  end_date: <%= Date.today - 2.days %>
+  status: "Started"
+  developer: another_developer
+
+project_five:
+  title: "Project Five"
+  deadline: <%= Date.today + 60.days %>
+  customer: "Beta Inc"
+  description: "Another crucial project."
+  start_date: <%= Date.today - 30.days %>
+  end_date: <%= Date.today + 40.days %>
+  status: "Started"
+  developer: another_developer
