@@ -51,10 +51,23 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1 or /projects/1.json
   def update
     respond_to do |format|
+      
       if @project.update(project_params)
+
+        # se il progetto è stato terminato creo la notifica
+        if @project.status.eql?("Finished")
+
+          developer = Developer.find(@project.developer_id)
+          @notification = developer.notifications.build(test: "The project " + @project.id.to_s + " was terminated", read: "N")
+          @notification.save
+
+        end
+
         format.html { redirect_to project_url(@project), notice: "Project was successfully updated." }
         format.json { render :show, status: :ok, location: @project }
+
       else
+
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @project.errors, status: :unprocessable_entity }
       end
