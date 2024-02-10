@@ -1,5 +1,5 @@
-urgent:
-  name: "Urgent"
+frontend:
+  name: "Front-end"
 
-important:
-  name: "Important"
+backend:
+  name: "Back-end"

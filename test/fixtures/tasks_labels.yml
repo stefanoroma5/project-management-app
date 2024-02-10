@@ -1,7 +1,7 @@
 task_one_urgent:
   task: task_one
-  label: urgent
+  label: frontend
 
 task_two_important:
   task: task_two
-  label: important
+  label: backend
