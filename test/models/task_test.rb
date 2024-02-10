@@ -14,7 +14,8 @@ class TaskTest < ActiveSupport::TestCase
       status: "Unstarted",
       title: "Test Task",
       description: "Test Description",
-      task_type: "Test Type",
+      task_type: "Feature",
+      priority: "Low",
       estimation: 10,
       project: project
     ).valid?

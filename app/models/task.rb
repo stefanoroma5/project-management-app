@@ -11,6 +11,14 @@ class Task < ApplicationRecord
     presence: true
   validates :end_date,
     presence: true
+  validates :task_type,
+    presence: true,
+    inclusion: {in: %w[Feature Chore Bug Release], message: "%{value} is not a valid task type"}
+  validates :status,
+    presence: true,
+    inclusion: {in: %w[Unstarted Started Finished], message: "%{value} is not a valid status"}
+  validates :priority,
+    inclusion: {in: %w[Low Medium High], message: "%{value} is not a valid priority"}
   validate :start_date_cannot_be_in_the_past, :end_date_cannot_be_in_the_past, :end_date_has_to_be_greater_than_start_date
 
   def start_date_cannot_be_in_the_past
