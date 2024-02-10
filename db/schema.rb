@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_05_213334) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_10_094844) do
   create_table "developer_projects", force: :cascade do |t|
     t.integer "developer_id", null: false
     t.integer "project_id", null: false
@@ -49,6 +49,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_05_213334) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.string "test"
+    t.string "read"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "developer_id", null: false
+    t.index ["developer_id"], name: "index_notifications_on_developer_id"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -91,6 +100,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_05_213334) do
   add_foreign_key "developer_projects", "projects"
   add_foreign_key "developer_tasks", "developers"
   add_foreign_key "developer_tasks", "tasks"
+  add_foreign_key "notifications", "developers"
   add_foreign_key "tasks_labels", "labels"
   add_foreign_key "tasks_labels", "tasks"
 end

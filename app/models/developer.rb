@@ -9,6 +9,7 @@ class Developer < ApplicationRecord
   has_many :projects, through: :developer_projects
   has_many :developer_tasks
   has_many :tasks, through: :developer_tasks
+  has_many :notifications
 
   validates :name,
     presence: true,

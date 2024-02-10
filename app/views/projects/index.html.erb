@@ -8,6 +8,10 @@
 
 <div> Welcome <%= current_developer.name %> </div> 
 
+<%= link_to "Notification center", notifications_path %>
+
+<br>
+
 <% if(params[:mode].eql? "m")%>
   <%= link_to "Show projects you collaborate for", "http://127.0.0.1:3000/projects?mode=c"%> 
 <% end%>
