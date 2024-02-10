@@ -1,21 +1,43 @@
 task_one:
   start_date: <%= Date.today %>
   end_date: <%= Date.today + 15.days %>
-  status: "ongoing"
+  status: "Unstarted"
   description: "Task one description."
-  task_type: "development"
+  task_type: "Feature"
   estimation: 5
-  priority: "high"
+  priority: "Low"
   title: "Task One"
   project: project_one
 
 task_two:
   start_date: <%= Date.today + 1.day %>
   end_date: <%= Date.today + 10.days %>
-  status: "pending"
+  status: "Started"
   description: "Task two description."
-  task_type: "testing"
+  task_type: "Chore"
   estimation: 3
-  priority: "medium"
+  priority: "Medium"
+  title: "Task Two"
+  project: project_two
+
+task_three:
+  start_date: <%= Date.today + 1.day %>
+  end_date: <%= Date.today + 10.days %>
+  status: "Finished"
+  description: "Task two description."
+  task_type: "Bug"
+  estimation: 3
+  priority: "High"
+  title: "Task Three"
+  project: project_two
+
+task_four:
+  start_date: <%= 1.months.ago %>
+  end_date: <%= Date.today + 10.days %>
+  status: "Finished"
+  description: "Task two description."
+  task_type: "Release"
+  estimation: 3
+  priority: "High"
   title: "Task Two"
   project: project_two
