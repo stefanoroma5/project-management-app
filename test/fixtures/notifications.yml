@@ -1,9 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  test: MyString
-  read: MyString
+notification_one:
+  text: "This is a notification."
+  read: "S"
+  developer: john_doe
 
-two:
-  test: MyString
-  read: MyString
+notification_two:
+  text: "This is another notification."
+  read: "N"
+  developer: jane_doe
