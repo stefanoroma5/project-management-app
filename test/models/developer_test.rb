@@ -40,6 +40,22 @@ class DeveloperTest < ActiveSupport::TestCase
     assert_respond_to @developer, :projects
   end
 
+  test "should have many developer_projects" do
+    assert_respond_to @developer, :developer_projects
+  end
+
+  test "should have many tasks" do
+    assert_respond_to @developer, :tasks
+  end
+
+  test "should have many developer_tasks" do
+    assert_respond_to @developer, :developer_tasks
+  end
+
+  test "should have many notifications" do
+    assert_respond_to @developer, :notifications
+  end
+
   # Testing the scopes
   test "should return recent developers" do
     old_developer = Developer.create(
