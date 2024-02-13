@@ -1,8 +1,10 @@
 <% if developer_signed_in? %> 
  <div> Welcome <%= current_developer.email %> </div> 
-  <%= button_to "Sign out", destroy_developer_session_path, method: :delete %> 
+  <%= button_to "Sign out", destroy_developer_session_path, method: :delete %>
+  <%= link_to "See your projects", "http://127.0.0.1:3000/projects?mode=m" %>
+ 
 <% else %>
-  <%= button_to "Sign in", new_developer_session_path %>
+  <%= link_to "Sign in", "http://127.0.0.1:3000/developers/sign_in" %>
 <% end %>
 
 <h1>This is the landing page</h1>
