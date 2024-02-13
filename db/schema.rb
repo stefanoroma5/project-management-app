@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_12_092138) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_13_083944) do
   create_table "developer_projects", force: :cascade do |t|
     t.integer "developer_id", null: false
     t.integer "project_id", null: false
@@ -53,7 +53,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_12_092138) do
 
   create_table "notifications", force: :cascade do |t|
     t.string "text"
-    t.string "read"
+    t.boolean "read"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "developer_id", null: false

@@ -58,7 +58,7 @@ class ProjectsController < ApplicationController
         if @project.status.eql?("Finished")
 
           developer = Developer.find(@project.developer_id)
-          @notification = developer.notifications.build(text: "The project " + @project.title + " was terminated", read: "N")
+          @notification = developer.notifications.build(text: "The project " + @project.title + " was terminated", read: false)
           @notification.save
 
         end

@@ -5,12 +5,12 @@
     <li>
       <div id="<%= dom_id notification %>">
         <p><%= notification.text %></p>
-        <% if notification.read.eql? "N" %>
+        <% if !notification.read %>
           <!-- form per segnare la notifica come letta -->
           <%= form_with(model: notification, local: true) do |form| %>
             <%= form.label :mark_as_already_read %>
             <%= form.hidden_field :text, value: notification.text %>
-            <%= form.hidden_field :read, value: "S" %>
+            <%= form.hidden_field :read, value: true %>
             <%= form.submit %>
           <% end %>
         <% end %>
