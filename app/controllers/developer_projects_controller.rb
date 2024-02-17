@@ -10,15 +10,15 @@ class DeveloperProjectsController < ApplicationController
   def create
     developer = Developer.find_by(email: params["email"])
     project = Project.find(params["project_id"])
-    @developer_project = DeveloperProject.new(developer_id: developer.id, project_id: project.id, email: developer.email, status: "active")
+    @developer_project = DeveloperProject.new(developer: developer, project: project, email: developer.email, status: "Active")
 
     respond_to do |format|
       if @developer_project.save
         format.html { redirect_to project_url(project), notice: "Collaborator was successfully added." }
         format.json { render :show, status: :created, location: project }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: project.errors, status: :unprocessable_entity }
+        format.html { redirect_to project_url(project), alert: "Unprocessable entity. Errors: #{@developer_project.errors.full_messages.join(', ')}", status: :unprocessable_entity }
+        format.json { render json: project_url.errors, status: :unprocessable_entity }
       end
     end
   end

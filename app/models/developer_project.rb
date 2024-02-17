@@ -6,5 +6,5 @@ class DeveloperProject < ApplicationRecord
     presence: true
   validates :status,
     presence: true,
-    inclusion: {in: %w[Unstarted Started Finished], message: "%{value} is not a valid status"}
+    inclusion: {in: %w[Active Inactive], message: "%{value} is not a valid status"}
 end
