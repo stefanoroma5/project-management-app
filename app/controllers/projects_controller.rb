@@ -34,18 +34,35 @@ class ProjectsController < ApplicationController
   # POST /projects or /projects.json
   def create
     @project = Project.new(project_params)
+    developer = Developer.find(current_developer.id)
 
-    @project.developer = Developer.find(current_developer.id)
+    @project.developer = developer
+    @developer_project = DeveloperProject.new(developer: developer, project: @project, email: developer.email, status: "Active")
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to project_url(@project), notice: "Project was successfully created." }
-        format.json { render :show, status: :created, location: @project }
+        if @developer_project.save
+          format.html { redirect_to project_url(@project), notice: "Project was successfully created." }
+          format.json { render :show, status: :created, location: @project }
+        else
+          format.html { redirect_to project_url(project), alert: "Unprocessable entity. Errors: #{@developer_project.errors.full_messages.join(', ')}", status: :unprocessable_entity }
+          format.json { render json: project_url.errors, status: :unprocessable_entity }
+        end
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to project_url(project), alert: "Unprocessable entity. Errors: #{@developer_project.errors.full_messages.join(', ')}",   status: :unprocessable_entity }
         format.json { render json: @project.errors, status: :unprocessable_entity }
       end
     end
+
+
+      # if @project.save
+      #  format.html { redirect_to project_url(@project), notice: "Project was successfully created." }
+      #  format.json { render :show, status: :created, location: @project }
+      # else
+      #  format.html { render :new,  status: :unprocessable_entity }
+      #  format.json { render json: @project.errors, status: :unprocessable_entity }
+      # end
+    # end
   end
 
   # PATCH/PUT /projects/1 or /projects/1.json
