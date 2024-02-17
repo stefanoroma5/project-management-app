@@ -14,32 +14,36 @@
         <p>
           <strong>Email:</strong>
           <%= developer_project.email %>
-          <br>
-          <strong>Status:</strong>
-          <%= developer_project.status %>
-          <%= hidden_field_tag "project_id", @project.id %>
-          <%= hidden_field_tag "developer_id", developer_project.developer_id %>
-          <%= hidden_field_tag "email", developer_project.email %>
-          <%= select_tag "status", options_for_select([['Please, select an option', nil], "Active", "Inactive" ])%>
-          <%= form.submit "Change status collaborator"%>
+          <% if !@project.status.eql?("Finished") && !@project.status.eql?("Cancelled") && @project.developer.email.eql?(current_developer.email)%>
+            <br>
+            <strong>Status:</strong>
+            <%= developer_project.status %>
+            <%= hidden_field_tag "project_id", @project.id %>
+            <%= hidden_field_tag "developer_id", developer_project.developer_id %>
+            <%= hidden_field_tag "email", developer_project.email %>
+            <%= select_tag "status", options_for_select([['Please, select an option', nil], "Active", "Inactive" ])%>
+            <%= form.submit "Change status collaborator"%>
+          <% end %>
         </p>
       </div>
     <% end %>
     
   <% end %>
 
-  <!-- FORM PER AGGIUNGERE UN COLLABORATORE -->
-  <h3>Add a collaborator to this project</h3>
-  <%= form_for @developer_project do |form| %>
-    <div>
-      <%= form.label :email, style: "display: block" %>
-      <%= text_field_tag "email" %>
-      <%= hidden_field_tag "project_id", @project.id %>
-    </div>
+  <% if !@project.status.eql?("Finished") && !@project.status.eql?("Cancelled") && @project.developer.email.eql?(current_developer.email) %>
+    <!-- FORM PER AGGIUNGERE UN COLLABORATORE -->
+    <h3>Add a collaborator to this project</h3>
+    <%= form_for @developer_project do |form| %>
+      <div>
+        <%= form.label :email, style: "display: block" %>
+        <%= text_field_tag "email" %>
+        <%= hidden_field_tag "project_id", @project.id %>
+      </div>
 
-    <div>
-      <%= form.submit "Add collaborator"%>
-    </div>
+      <div>
+        <%= form.submit "Add collaborator"%>
+      </div>
+    <% end %>
   <% end %>
 
 </div>
@@ -49,11 +53,12 @@
 <br>
 
 <div>
-  <%= link_to "Edit this project", edit_project_path(@project) %> |
-  <%= link_to "Back to projects", "http://127.0.0.1:3000/projects?mode=m" %> |
-  <%= link_to "Show tasks", tasks_path(@project) %>
-
-  <%= button_to "Destroy this project", @project, method: :delete %>
+  <% if !@project.status.eql?("Finished") && !@project.status.eql?("Cancelled") && @project.developer.email.eql?(current_developer.email) %>
+    <%= link_to "Edit this project", edit_project_path(@project) %> |
+    <%= link_to "Show tasks", tasks_path(@project) %> |
+  <% end %>
+  <%= link_to "Back to projects", "http://127.0.0.1:3000/projects?mode=m" %>
+  
 </div>
 
 <%= button_to "Sign out", destroy_developer_session_path, method: :delete %> 

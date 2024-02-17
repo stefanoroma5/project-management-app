@@ -15,7 +15,7 @@ class Project < ApplicationRecord
     presence: true
   validates :status,
     presence: true,
-    inclusion: {in: %w[Unstarted Started Finished], message: "%{value} is not a valid status"}
+    inclusion: {in: %w[Unstarted Started Finished Cancelled], message: "%{value} is not a valid status"}
   validate :start_date_cannot_be_in_the_past, :end_date_cannot_be_in_the_past, :deadline_cannot_be_in_the_past, :start_date_has_to_be_smaller_than_deadline, :end_date_has_to_be_greater_than_start_date
 
   def start_date_cannot_be_in_the_past
