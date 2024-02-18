@@ -81,7 +81,7 @@ class DeveloperTest < ActiveSupport::TestCase
       status: "Unstarted",
       developer: @developer
     )
-    DeveloperProject.create(developer: @developer, project: project, email: @developer.email, status: project.status)
+    DeveloperProject.create(developer: @developer, project: project, email: @developer.email, status: "Active")
     assert_includes Developer.collaborators(project.id), @developer
   end
 end

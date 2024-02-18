@@ -42,4 +42,15 @@ class DeveloperProjectTest < ActiveSupport::TestCase
     refute developer_project.valid?
     assert_includes developer_project.errors[:status], "can't be blank"
   end
+
+  test "should not be created with invalid status" do
+    developer_project = DeveloperProject.new(
+      developer: developers(:john_doe),
+      project: projects(:project_one),
+      email: "test@example.com",
+      status: "Invalid"
+    )
+    refute developer_project.valid?
+    assert_includes developer_project.errors[:status], "#{developer_project.status} is not a valid status"
+  end
 end

@@ -143,6 +143,33 @@ class ProjectTest < ActiveSupport::TestCase
     assert_includes project.errors[:end_date], "can't be earlier than start date"
   end
 
+  test "status should be one of the allowed values" do
+    project = Project.new(
+      title: "Test Project",
+      deadline: Date.today + 30,
+      customer: "Test Customer",
+      description: "Test Description",
+      status: "Invalid State",
+      start_date: Date.today,
+      end_date: Date.today + 30
+    )
+    refute project.valid?
+    assert_includes project.errors[:status], "#{project.status} is not a valid status"
+  end
+
+  test "status should be present" do
+    project = Project.new(
+      title: "Test Project",
+      deadline: Date.today + 30,
+      customer: "Test Customer",
+      description: "Test Description",
+      start_date: Date.today,
+      end_date: Date.today + 30
+    )
+    refute project.valid?
+    assert_includes project.errors[:status], "can't be blank"
+  end
+
   # Testing the associations
   test "project should belong to a developer" do
     developer = Developer.create(name: "John Doe")
