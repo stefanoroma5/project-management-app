@@ -1,11 +1,9 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 notification_one:
   text: "This is a notification."
-  read: "S"
+  read: true
   developer: john_doe
 
 notification_two:
   text: "This is another notification."
-  read: "N"
+  read: false
   developer: jane_doe
