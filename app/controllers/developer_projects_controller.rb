@@ -1,7 +1,7 @@
 class DeveloperProjectsController < ApplicationController
-  before_action :set_developer_project, only: %i[ edit update destroy ]
+  before_action :set_developer_project, only: %i[edit update destroy]
 
-    # GET /developer_projects/new
+  # GET /developer_projects/new
   def new
     @developer_project = DeveloperProject.new
   end
@@ -17,7 +17,7 @@ class DeveloperProjectsController < ApplicationController
         format.html { redirect_to project_url(project), notice: "Collaborator was successfully added." }
         format.json { render :show, status: :created, location: project }
       else
-        format.html { redirect_to project_url(project), alert: "Unprocessable entity. Errors: #{@developer_project.errors.full_messages.join(', ')}", status: :unprocessable_entity }
+        format.html { redirect_to project_url(project), alert: "Unprocessable entity. Errors: #{@developer_project.errors.full_messages.join(", ")}", status: :unprocessable_entity }
         format.json { render json: project_url.errors, status: :unprocessable_entity }
       end
     end
@@ -43,9 +43,9 @@ class DeveloperProjectsController < ApplicationController
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_developer_project
     @developer_project = DeveloperProject.find(params[:id])
   end
-
 end

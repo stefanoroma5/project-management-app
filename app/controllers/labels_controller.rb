@@ -1,5 +1,5 @@
 class LabelsController < ApplicationController
-  before_action :set_label, only: %i[ show edit update destroy ]
+  before_action :set_label, only: %i[show edit update destroy]
 
   # GET /labels or /labels.json
   def index
@@ -58,13 +58,14 @@ class LabelsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_label
-      @label = Label.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def label_params
-      params.require(:label).permit(:name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_label
+    @label = Label.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def label_params
+    params.require(:label).permit(:name)
+  end
 end
