@@ -1,4 +1,4 @@
-<p class="mb-0" style="margin-left: 1%"> Welcome <%= current_developer.name %> </p>
+<p style="margin-left: 1%; margin-top: 1%"> Welcome <%= current_developer.name %> </p>
 
 <div class="container my-4 text-center">
   <% if(params[:mode].eql? "m") %> 
@@ -27,14 +27,7 @@
   <div class="row">
     <% @projects.each do |project| %>
       <div class="col">
-      
-        <div class="card" style="width: 18rem; margin-bottom: 1rem;">
-          <div class="card-body">
-            <%= render project %>
-            <%= link_to "Show this project", project, class: "btn btn-primary" %>
-          </div>
-        </div>
-      
+        <%= render project %>
       </div>
     <% end %>
   </div>
