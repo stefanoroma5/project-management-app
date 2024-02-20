@@ -45,5 +45,5 @@ project_five:
   description: "Another crucial project."
   start_date: <%= Date.today - 30.days %>
   end_date: <%= Date.today + 40.days %>
-  status: "Started"
+  status: "Cancelled"
   developer: another_developer

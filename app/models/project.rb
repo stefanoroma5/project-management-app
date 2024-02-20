@@ -51,6 +51,7 @@ class Project < ApplicationRecord
   scope :unstarted, -> { where(status: "Unstarted") }
   scope :started, -> { where(status: "Started") }
   scope :finished, -> { where(status: "Finished") }
+  scope :cancelled, -> { where(status: "Cancelled") }
 
   scope :recent, ->(*args) {
                    where("start_date > ?",

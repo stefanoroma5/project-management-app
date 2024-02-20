@@ -225,6 +225,7 @@ class ProjectTest < ActiveSupport::TestCase
     assert_includes Project.unstarted, projects(:project_one), "Unstarted scope should include unstarted projects"
     assert_includes Project.started, projects(:project_two), "Started scope should include started projects"
     assert_includes Project.finished, projects(:project_three), "Finished scope should include finished projects"
+    assert_includes Project.cancelled, projects(:project_five), "Cancelled scope should include cancelled projects"
   end
 
   test "should filter projects that are overdue" do
