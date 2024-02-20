@@ -21,6 +21,18 @@ class TaskTest < ActiveSupport::TestCase
     ).valid?
   end
 
+  test "should have a description" do
+    task = Task.new(
+      start_date: Date.today,
+      end_date: Date.today + 30,
+      status: "Unstarted",
+      task_type: "Test Type",
+      estimation: 10
+    )
+    refute task.valid?
+    assert_includes task.errors[:description], "can't be blank"
+  end
+
   test "should have a title" do
     task = Task.new(
       start_date: Date.today,
@@ -46,16 +58,68 @@ class TaskTest < ActiveSupport::TestCase
     assert_includes task.errors[:end_date], "can't be blank"
   end
 
-  test "should have a description" do
+  test "should have a task type" do
     task = Task.new(
       start_date: Date.today,
       end_date: Date.today + 30,
       status: "Unstarted",
+      description: "Test Description",
+      estimation: 10
+    )
+    refute task.valid?
+    assert_includes task.errors[:task_type], "can't be blank"
+  end
+
+  test "should have a valid task type" do
+    task = Task.new(
+      start_date: Date.today,
+      end_date: Date.today + 30,
+      status: "Unstarted",
+      description: "Test Description",
       task_type: "Test Type",
       estimation: 10
     )
     refute task.valid?
-    assert_includes task.errors[:description], "can't be blank"
+    assert_includes task.errors[:task_type], "Test Type is not a valid task type"
+  end
+
+  test "should have a status" do
+    task = Task.new(
+      start_date: Date.today,
+      end_date: Date.today + 30,
+      description: "Test Description",
+      task_type: "Test Type",
+      estimation: 10
+    )
+    refute task.valid?
+    assert_includes task.errors[:status], "can't be blank"
+  end
+
+  test "should have a valid status" do
+    task = Task.new(
+      start_date: Date.today,
+      end_date: Date.today + 30,
+      status: "Test Status",
+      description: "Test Description",
+      task_type: "Test Type",
+      estimation: 10
+    )
+    refute task.valid?
+    assert_includes task.errors[:status], "Test Status is not a valid status"
+  end
+
+  test "should have a valid priority" do
+    task = Task.new(
+      start_date: Date.today,
+      end_date: Date.today + 30,
+      status: "Unstarted",
+      description: "Test Description",
+      task_type: "Test Type",
+      priority: "Test Priority",
+      estimation: 10
+    )
+    refute task.valid?
+    assert_includes task.errors[:priority], "Test Priority is not a valid priority"
   end
 
   test "start date should not be in the past" do
