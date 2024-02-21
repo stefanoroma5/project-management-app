@@ -4,7 +4,6 @@ class Notification < ApplicationRecord
   validates :text,
     presence: true
   validates :read,
-    presence: true,
     inclusion: {in: [true, false], message: "%{value} is not valid"}
 
   scope :unread, -> { where(read: false) }

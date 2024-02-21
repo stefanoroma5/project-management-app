@@ -24,15 +24,6 @@ class NotificationTest < ActiveSupport::TestCase
     assert_includes notification.errors[:text], "can't be blank"
   end
 
-  test "should not be created without read" do
-    notification = Notification.new(
-      developer: developers(:john_doe),
-      text: "Test"
-    )
-    refute notification.valid?
-    assert_includes notification.errors[:read], "can't be blank"
-  end
-
   test "should not be created with invalid read" do
     notification = Notification.new(
       developer: developers(:john_doe),
