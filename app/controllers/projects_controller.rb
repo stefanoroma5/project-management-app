@@ -10,7 +10,6 @@ class ProjectsController < ApplicationController
     end
     if params[:mode].eql? "c"
       @projects = Project.collaborate(current_developer.id)
-
     end
   end
 
@@ -44,11 +43,11 @@ class ProjectsController < ApplicationController
           format.html { redirect_to project_url(@project), notice: "Project was successfully created." }
           format.json { render :show, status: :created, location: @project }
         else
-          format.html { redirect_to project_url(project), alert: "Unprocessable entity. Errors: #{@developer_project.errors.full_messages.join(", ")}", status: :unprocessable_entity }
-          format.json { render json: project_url.errors, status: :unprocessable_entity }
+          format.html { render :new, alert: "Unprocessable entity. Errors: #{@developer_project.errors.full_messages.join(", ")}", status: :unprocessable_entity }
+          format.json { render json: @project.errors, status: :unprocessable_entity }
         end
       else
-        format.html { redirect_to project_url(project), alert: "Unprocessable entity. Errors: #{@developer_project.errors.full_messages.join(", ")}", status: :unprocessable_entity }
+        format.html { render :new, alert: "Unprocessable entity. Errors: #{@project.errors.full_messages.join(", ")}", status: :unprocessable_entity }
         format.json { render json: @project.errors, status: :unprocessable_entity }
       end
     end
@@ -64,7 +63,11 @@ class ProjectsController < ApplicationController
 
           developer = Developer.find(@project.developer_id)
           @notification = developer.notifications.build(text: "The project " + @project.title + " was terminated", read: false)
-          @notification.save
+          if @notification.save
+            puts "Notification created"
+          else
+            puts @notification.errors.full_messages
+          end
 
         end
 
