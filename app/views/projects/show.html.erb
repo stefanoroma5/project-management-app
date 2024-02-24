@@ -1,7 +1,26 @@
+<p style="margin-left: 1%; margin-top: 1%"> Welcome <%= current_developer.name %> </p>
+
+<div class="container my-4 text-center">
+  <h1><%= @project.title %></h1>
+</div>
+
+<div class="container">
+  <nav class="nav nav-pills flex-column flex-sm-row mb-4">
+    <%= link_to "Notification center", notifications_path, class: "flex-sm-fill text-sm-center nav-link" %>
+    <%= link_to "New project", new_project_path, class: "flex-sm-fill text-sm-center nav-link" %>
+    <% if !@project.status.eql?("Finished") && !@project.status.eql?("Cancelled") && @project.developer.email.eql?(current_developer.email) %>
+      <%= link_to "Edit this project", edit_project_path(@project), class: "flex-sm-fill text-sm-center nav-link" %>
+      <%= link_to "Show tasks", tasks_path(@project), class: "flex-sm-fill text-sm-center nav-link" %>
+    <% end %>
+    <%= link_to "Back to projects", "http://127.0.0.1:3000/projects?mode=m", class: "flex-sm-fill text-sm-center nav-link" %>
+    <%= button_to "Sign out", destroy_developer_session_path, method: :delete, class: "flex-sm-fill text-sm-center nav-link" %>
+  </nav>
+</div>
+
 <%= render @project %>
 
 <% if !@project.status.eql?("Finished") && !@project.status.eql?("Cancelled") && @project.developer.email.eql?(current_developer.email) %>
-  <%= button_to 'Cancella Progetto', cancel_project_path(@project), method: :patch, data: { confirm: 'Sei sicuro?' } %>
+  <%= button_to 'Delete Project', cancel_project_path(@project), method: :patch, data: { confirm: 'Sei sicuro?' } %>
 <%end%>
 
 <!-- Sezione per visualizzare i collaboratori -->
@@ -51,18 +70,3 @@
   <% end %>
 
 </div>
-
-<!-- Fine sezione per visualizzare i collaboratori -->
-
-<br>
-
-<div>
-  <% if !@project.status.eql?("Finished") && !@project.status.eql?("Cancelled") && @project.developer.email.eql?(current_developer.email) %>
-    <%= link_to "Edit this project", edit_project_path(@project) %> |
-    <%= link_to "Show tasks", tasks_path(@project) %> |
-  <% end %>
-  <%= link_to "Back to projects", "http://127.0.0.1:3000/projects?mode=m" %>
-  
-</div>
-
-<%= button_to "Sign out", destroy_developer_session_path, method: :delete %> 
