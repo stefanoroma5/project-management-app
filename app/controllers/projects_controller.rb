@@ -82,6 +82,19 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def cancel
+    respond_to do |format|
+      @project = Project.find(params[:id])
+      if @project.update(status: 'Cancelled')
+        format.html { redirect_to project_url(@project), notice: "Project was successfully Cancelled." }
+        format.json { render :show, status: :ok, location: @project }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @project.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

@@ -1,5 +1,9 @@
 <%= render @project %>
 
+<% if !@project.status.eql?("Finished") && !@project.status.eql?("Cancelled") && @project.developer.email.eql?(current_developer.email) %>
+  <%= button_to 'Cancella Progetto', cancel_project_path(@project), method: :patch, data: { confirm: 'Sei sicuro?' } %>
+<%end%>
+
 <!-- Sezione per visualizzare i collaboratori -->
 
 <div id="collaborators">

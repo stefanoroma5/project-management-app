@@ -7,6 +7,13 @@ Rails.application.routes.draw do
   resources :developer_projects
   resources :notifications
 
+  # config/routes.rb
+  resources :projects do
+    member do
+      patch 'cancel'
+    end
+  end
+
   root to: "home#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
