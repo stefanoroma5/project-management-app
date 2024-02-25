@@ -84,4 +84,19 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "Finished", @project.status
     assert_equal "The project " + @project.title + " was terminated", Notification.last.text
   end
+
+  # Testing cancel
+  test "should cancel project with valid id" do
+    patch cancel_project_url(@project)
+    assert_redirected_to project_url(@project)
+    assert_equal "Project was successfully Cancelled.", flash[:notice]
+    @project.reload
+    assert_equal "Cancelled", @project.status
+  end
+
+  test "should not cancel project with invalid id" do
+    assert_raises(ActiveRecord::RecordNotFound) do
+      patch cancel_project_url(-1)
+    end
+  end
 end
