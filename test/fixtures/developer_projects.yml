@@ -1,7 +1,11 @@
 developer_project_john:
   developer: john_doe
   project: project_one
+  email: "test@example.com"
+  status: Active
 
 developer_project_jane:
   developer: jane_doe
   project: project_two
+  email: "test@example.com"
+  status: Active
