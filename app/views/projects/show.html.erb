@@ -17,56 +17,107 @@
   </nav>
 </div>
 
-<%= render @project %>
+<div class="container">
 
-<% if !@project.status.eql?("Finished") && !@project.status.eql?("Cancelled") && @project.developer.email.eql?(current_developer.email) %>
-  <%= button_to 'Delete Project', cancel_project_path(@project), method: :patch, data: { confirm: 'Sei sicuro?' } %>
-<%end%>
+  <!-- card di sinistra con le informazioni del progetto -->
+  <div class="row align-items-md-stretch">
+    <div class="col-md-6">
+      <div class="h-100 p-5 text-bg-dark rounded-3">
+        <h2>Project details</h2>
 
-<!-- Sezione per visualizzare i collaboratori -->
-
-<div id="collaborators">
-  <p>
-    <strong>Collaborators</strong>
-  </p>
-
-  <!-- FORM PER CAMBIARE LO STATO DI UN COLLABORATORE -->
-  <% @developer_projects.each do |developer_project| %>
-    <%= form_with(model: developer_project) do |form| %>
-      <div>
-        <p>
-          <strong>Email:</strong>
-          <%= developer_project.email %>
-          <% if !@project.status.eql?("Finished") && !@project.status.eql?("Cancelled") && @project.developer.email.eql?(current_developer.email)%>
-            <br>
-            <strong>Status:</strong>
-            <%= developer_project.status %>
-            <%= hidden_field_tag "project_id", @project.id %>
-            <%= hidden_field_tag "developer_id", developer_project.developer_id %>
-            <%= hidden_field_tag "email", developer_project.email %>
-            <%= select_tag "status", options_for_select([['Please, select an option', nil], "Active", "Inactive" ])%>
-            <%= form.submit "Change status collaborator"%>
-          <% end %>
+        <p class="card-text">
+          <strong>Deadline:</strong>
+          <%= @project.deadline %>
         </p>
-      </div>
-    <% end %>
-    
-  <% end %>
 
-  <% if !@project.status.eql?("Finished") && !@project.status.eql?("Cancelled") && @project.developer.email.eql?(current_developer.email) %>
-    <!-- FORM PER AGGIUNGERE UN COLLABORATORE -->
-    <h3>Add a collaborator to this project</h3>
-    <%= form_for @developer_project do |form| %>
-      <div>
-        <%= form.label :email, style: "display: block" %>
-        <%= text_field_tag "email" %>
-        <%= hidden_field_tag "project_id", @project.id %>
-      </div>
+        <p class="card-text">
+          <strong>Customer:</strong>
+          <%= @project.customer %>
+        </p>
 
-      <div>
-        <%= form.submit "Add collaborator"%>
+        <p class="card-text">
+          <strong>Description:</strong>
+          <%= @project.description %>
+        </p>
+
+        <p class="card-text">
+          <strong>Status:</strong>
+          <%= @project.status %>
+        </p>
+
+        <p class="card-text">
+          <strong>Start date:</strong>
+          <%= @project.start_date %>
+        </p>
+
+        <p class="card-text">
+          <strong>End date:</strong>
+          <%= @project.end_date %>
+        </p>
+
+        <% if !@project.status.eql?("Finished") && !@project.status.eql?("Cancelled") && @project.developer.email.eql?(current_developer.email) %>
+          <%= button_to 'Delete Project', cancel_project_path(@project), method: :patch, data: { confirm: 'Sei sicuro?' }, class: "btn btn-outline-light" %>
+        <%end%>        
       </div>
-    <% end %>
-  <% end %>
+    </div>
+
+    <!-- card di destra per i collaboratori -->
+    <div class="col-md-6">
+      <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+        <h2>Collaborators</h2>
+
+        <!-- FORM PER CAMBIARE LO STATO DI UN COLLABORATORE -->
+        <% @developer_projects.each do |developer_project| %>
+          <%= form_with(model: developer_project) do |form| %>
+            <div>
+              <p>
+                <strong>Email:</strong>
+                <%= developer_project.email %>
+                <% if !@project.status.eql?("Finished") && !@project.status.eql?("Cancelled") && @project.developer.email.eql?(current_developer.email)%>
+                  <br>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <strong>Status:</strong>
+                      <%= developer_project.status %>
+                    </div>
+                    <div class="col-sm-8">
+                      <%= hidden_field_tag "project_id", @project.id %>
+                      <%= hidden_field_tag "developer_id", developer_project.developer_id %>
+                      <%= hidden_field_tag "email", developer_project.email %>
+                      <%= select_tag "status", options_for_select([['Select a status', nil], "Active", "Inactive" ]), class: "form-select"%>
+                    </div>
+                  </div>
+                  <%= form.submit "Change status collaborator", class: "btn btn-outline-secondary mt-3"%>
+                <% end %>
+              </p>
+            </div>
+          <% end %>
+          
+        <% end %>
+
+        <% if !@project.status.eql?("Finished") && !@project.status.eql?("Cancelled") && @project.developer.email.eql?(current_developer.email) %>
+          <!-- FORM PER AGGIUNGERE UN COLLABORATORE -->
+          <h5>Add a collaborator to this project</h5>
+          <%= form_for @developer_project do |form| %>
+            <div class="row">
+              <div class="col-sm-4">
+                <%= form.label :email, style: "display: block" %>
+              </div>
+              <div class="col-sm-8">
+                <%= text_field_tag "email", nil, class: "form-control"%>
+                <%= hidden_field_tag "project_id", @project.id %>
+              </div>
+            </div>
+
+            <div>
+              <%= form.submit "Add collaborator", class: "btn btn-outline-secondary mt-3"%>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+ 
 
 </div>
