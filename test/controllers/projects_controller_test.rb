@@ -11,9 +11,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
       deadline: Date.today + 30,
       customer: "Test Customer",
       description: "Project Description",
-      start_date: "2021-01-01",
-      end_date: "2021-12-31",
-      status: "Active",
+      status: "Started",
       developer: @developer
     }
     @project = projects(:project_one)
