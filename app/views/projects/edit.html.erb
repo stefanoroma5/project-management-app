@@ -1,23 +1,39 @@
 <p style="margin-left: 1%; margin-top: 1%"> Welcome <%= current_developer.name %> </p>
 
-<div class="container">
-  <nav class="nav nav-pills flex-column flex-sm-row mb-4">
-    <%= link_to "Notification center", notifications_path, class: "flex-sm-fill text-sm-center nav-link" %>
-    <%= link_to "New project", new_project_path, class: "flex-sm-fill text-sm-center nav-link" %>
-    <% if !@project.status.eql?("Finished") && !@project.status.eql?("Cancelled") && @project.developer.email.eql?(current_developer.email) %>
-      <%= link_to "Show tasks", tasks_path(@project), class: "flex-sm-fill text-sm-center nav-link" %>
-    <% end %>
-    <%= link_to "Back to projects", "http://127.0.0.1:3000/projects?mode=m", class: "flex-sm-fill text-sm-center nav-link" %>
-    <%= link_to "Show this project", @project, class: "flex-sm-fill text-sm-center nav-link" %>
-    <%= button_to "Sign out", destroy_developer_session_path, method: :delete, class: "flex-sm-fill text-sm-center nav-link" %>
-  </nav>
+<div class="container my-4 text-center">
+  <h1>Editing project</h1>
 </div>
+
+<nav class="navbar navbar-expand-lg justify-content-center", style="margin-bottom: 1rem;">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li class="nav-item", style="padding-eft: 2rem; padding-right: 2rem;">
+          <%= link_to "Notification center", notifications_path, class: "nav-link active" %>
+        </li>
+        <li class="nav-item", style="padding-eft: 2rem; padding-right: 2rem;">
+          <%= link_to "New project", new_project_path, class: "nav-link active" %>
+        </li>
+        <li class="nav-item", style="padding-eft: 2rem; padding-right: 2rem;">
+            <%= link_to "Show tasks", tasks_path(@project), class: "nav-link active" %>
+          </li>
+        <li class="nav-item", style="padding-eft: 2rem; padding-right: 2rem;">
+          <%= link_to "Back to projects", "http://127.0.0.1:3000/projects?mode=m", class: "nav-link active" %>
+        </li>
+        <li class="nav-item", style="padding-eft: 2rem; padding-right: 2rem;">
+            <%= link_to "Show this project", @project, class: "nav-link active" %>
+          </li>
+        <li class="nav-item", style="padding-eft: 2rem; padding-right: 2rem;">
+          <%= button_to "Sign out", destroy_developer_session_path, method: :delete, class: "nav-link active" %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
 <div class="container">
   <div class="card bg-body-tertiary" style="width: 26rem; margin: 0 auto;">
     <div class="card-body">
-      <h1>Editing project</h1>
-
       <%= render "form", project: @project %>
       
     </div>
