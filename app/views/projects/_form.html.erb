@@ -42,7 +42,7 @@
   <div class="row mb-2">
     <%= form.label :status, class: "col-sm-4 col-form-label"%>
     <div class="col-sm-8">
-      <%= form.select :status, [['Please, select an option', nil], 'Unstarted', 'Started', 'Finished'], class: "form-select" %>
+      <%= form.select :status, [['Please, select an option', nil], 'Unstarted', 'Started', 'Finished'], {}, class: "form-select" %>
     </div>
   </div>
 
@@ -61,6 +61,6 @@
   </div>
 
   <div class="mb-1">
-        <%= form.submit "Create project", class: "btn btn-primary" %>
-      </div>
+    <%= form.submit "Go!", class: "btn btn-primary" %>
+  </div>
 <% end %>

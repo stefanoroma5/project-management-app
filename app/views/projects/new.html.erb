@@ -1,15 +1,20 @@
-<div class="card position-absolute top-50 start-50 translate-middle" style="width: 26rem;">
-  <div class="card-body">
-    <h1>New Project</h1>
+<p style="margin-left: 1%; margin-top: 1%"> Welcome <%= current_developer.name %> </p>
 
-    <%= render "form", project: @project %>
+<div class="container">
+  <nav class="nav nav-pills flex-column flex-sm-row mb-4">
+    <%= link_to "Notification center", notifications_path, class: "flex-sm-fill text-sm-center nav-link" %>
+    <%= link_to "Back to projects", "http://127.0.0.1:3000/projects?mode=m", class: "flex-sm-fill text-sm-center nav-link" %>
+    <%= button_to "Sign out", destroy_developer_session_path, method: :delete, class: "flex-sm-fill text-sm-center nav-link" %>
+  </nav>
+</div>
+
+<div class="container">
+  <div class="card bg-body-tertiary" style="width: 26rem; margin: 0 auto;">
+    <div class="card-body">
+      <h1>New Project</h1>
+
+      <%= render "form", project: @project %>
+      
+    </div>
   </div>
 </div>
-
-<br>
-
-<div>
-  <%= link_to "Back to projects", "http://127.0.0.1:3000/projects?mode=m" %>
-</div>
-
- <%= button_to "Sign out", destroy_developer_session_path, method: :delete %> 
