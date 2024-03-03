@@ -13,6 +13,7 @@ class Notification < ApplicationRecord
       (args.first || 2.weeks.ago))
   }
 
+  # Action per creare la notifica nel caso si ecceda la deadline
   def self.check_deadlines
     projects = Project.all
     projects.each do |project|
