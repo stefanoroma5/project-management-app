@@ -1,22 +1,44 @@
-<h1>Centro notifiche</h1>
+<p style="margin-left: 1%; margin-top: 1%"> Welcome <%= current_developer.name %> </p>
 
-<ul>
-  <% @notifications.each do |notification| %>
-    <li>
-      <div id="<%= dom_id notification %>">
-        <p><%= notification.text %></p>
-        <% if !notification.read %>
-          <!-- form per segnare la notifica come letta -->
-          <%= form_with(model: notification, local: true) do |form| %>
-            <%= form.hidden_field :text, value: notification.text %>
-            <%= form.hidden_field :read, value: true %>
-            <%= form.submit "Mark as already read" %>
+<div class="container my-4 text-center">
+  <h1>Notification center</h1>
+</div>
+
+<nav class="navbar navbar-expand-lg justify-content-center", style="margin-bottom: 1rem;">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li class="nav-item", style="padding-eft: 4rem; padding-right: 4rem;">
+          <%= link_to "New project", new_project_path, class: "nav-link active" %>
+        </li>
+        <li class="nav-item", style="padding-eft: 4rem; padding-right: 4rem;">
+          <%= link_to "Back to projects", "http://127.0.0.1:3000/projects?mode=m", class: "nav-link active" %>
+        </li>
+        <li class="nav-item", style="padding-eft: 4rem; padding-right: 4rem;">
+          <%= button_to "Sign out", destroy_developer_session_path, method: :delete, class: "nav-link active" %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <ul class="list-group list-group-flush">
+    <% @notifications.each do |notification| %>
+      <li class="list-group-item">
+        <div id="<%= dom_id notification %>">
+          <p style="float: left;"><%= notification.text %></p>
+          <% if !notification.read %>
+            <!-- form per segnare la notifica come letta -->
+            <%= form_with(model: notification, local: true) do |form| %>
+              <%= form.hidden_field :text, value: notification.text %>
+              <%= form.hidden_field :read, value: true %>
+              <%= form.submit "Mark as already read", class: "btn btn-primary", style: "float: right;" %>
+            <% end %>
           <% end %>
-        <% end %>
-      </div>
-    </li>
-  <% end %>
+        </div>
+      </li>
+    <% end %>
 
-  <%= link_to "Back to projects", "http://127.0.0.1:3000/projects?mode=m" %>
-  
-</ul>
+  </ul>
+</div>
