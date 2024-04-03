@@ -60,13 +60,14 @@ class ProjectsController < ApplicationController
 
         # se il progetto è stato terminato creo la notifica
         if @project.status.eql?("Finished")
-
-          developer = Developer.find(@project.developer_id)
-          @notification = developer.notifications.build(text: "The project " + @project.title + " was terminated", read: false)
-          if @notification.save
-            puts "Notification created"
-          else
-            puts @notification.errors.full_messages
+          @collaborating_developers = Developer.joins(:developer_projects).where(developer_projects: {project_id: @project.id})
+          @collaborating_developers.each do |developer|
+            notification = developer.notifications.build(text: "The project " + @project.title + " was terminated", read: false)
+            if notification.save
+              puts "Notification created"
+            else
+              puts notification.errors.full_messages
+            end
           end
 
         end
@@ -85,7 +86,7 @@ class ProjectsController < ApplicationController
   def cancel
     respond_to do |format|
       @project = Project.find(params[:id])
-      if @project.update(status: 'Cancelled')
+      if @project.update(status: "Cancelled")
         format.html { redirect_to project_url(@project), notice: "Project was successfully Cancelled." }
         format.json { render :show, status: :ok, location: @project }
       else
