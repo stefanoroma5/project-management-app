@@ -16,6 +16,13 @@ class DeveloperProjectsController < ApplicationController
       if @developer_project.save
         format.html { redirect_to project_url(project), notice: "Collaborator was successfully added." }
         format.json { render :show, status: :created, location: project }
+
+        notification = developer.notifications.build(text: "You have been added to the project " + project.title, read: false)
+        if notification.save
+          puts "Notification created"
+        else
+          puts notification.errors.full_messages
+        end
       else
         format.html { redirect_to project_url(project), alert: "Unprocessable entity. Errors: #{@developer_project.errors.full_messages.join(", ")}", status: :unprocessable_entity }
         format.json { render json: project_url.errors, status: :unprocessable_entity }
