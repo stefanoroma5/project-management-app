@@ -17,14 +17,6 @@
         <li class="nav-item", style="padding-eft: 2rem; padding-right: 2rem;">
           <%= link_to "New project", new_project_path, class: "nav-link active" %>
         </li>
-        <% if !@project.status.eql?("Finished") && !@project.status.eql?("Cancelled") && @project.developer.email.eql?(current_developer.email) %>
-          <li class="nav-item", style="padding-eft: 2rem; padding-right: 2rem;">
-            <%= link_to "Edit this project", edit_project_path(@project), class: "nav-link active" %>
-          </li>
-          <li class="nav-item", style="padding-eft: 2rem; padding-right: 2rem;">
-            <%= link_to "Show tasks", tasks_path(@project), class: "nav-link active" %>
-          </li>
-        <% end %>
         <li class="nav-item", style="padding-eft: 2rem; padding-right: 2rem;">
           <%= link_to "Back to projects", "http://127.0.0.1:3000/projects?mode=m", class: "nav-link active" %>
         </li>
@@ -75,7 +67,17 @@
         </p>
 
         <% if !@project.status.eql?("Finished") && !@project.status.eql?("Cancelled") && @project.developer.email.eql?(current_developer.email) %>
-          <%= button_to 'Delete Project', cancel_project_path(@project), method: :patch, data: { confirm: 'Sei sicuro?' }, class: "btn btn-outline-light" %>
+          <div class="row row-cols-auto">
+            <div class="col">
+              <%= button_to "Edit this project", edit_project_path(@project), method: :get, class: "btn btn-outline-light" %>
+            </div>
+            <div class="col">
+              <%= button_to "Show tasks", tasks_path(@project), method: :get, class: "btn btn-outline-info" %>
+            </div>
+            <div class="col">
+              <%= button_to 'Delete Project', cancel_project_path(@project), method: :patch, data: { confirm: 'Sei sicuro?' }, class: "btn btn-outline-danger" %>
+            </div>
+          </div>
         <%end%>        
       </div>
     </div>
