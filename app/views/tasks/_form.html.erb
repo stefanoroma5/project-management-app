@@ -1,4 +1,4 @@
-<%= form_with(model: task) do |form| %>
+<%= form_with(model: [@project, task]) do |form| %>
   <% if task.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
@@ -11,47 +11,63 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :start_date, style: "display: block" %>
-    <%= form.date_field :start_date %>
+  <div class="row mb-2">
+    <%= form.label :title, "Title *", class: "col-sm-4 col-form-label" %>
+    <div class="col-sm-8">
+      <%= form.text_field :title, class: "form-control", required: true %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :end_date, style: "display: block" %>
-    <%= form.date_field :end_date %>
+  <div class="row mb-2">
+    <%= form.label :start_date, class: "col-sm-4 col-form-label" %>
+    <div class="col-sm-8">
+      <%= form.date_field :start_date, class: "form-control" %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :status, style: "display: block" %>
-    <%= form.text_field :status %>
+  <div class="row mb-2">
+    <%= form.label :end_date, class: "col-sm-4 col-form-label" %>
+    <div class="col-sm-8">
+      <%= form.date_field :end_date, class:"form-control" %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_field :description %>
+  <div class="row mb-2">
+    <%= form.label :status, "Status *", class: "col-sm-4 col-form-label"%>
+    <div class="col-sm-8">
+      <%= form.select :status, [['Please, select an option', nil], 'Unstarted', 'Started', 'Finished'], {}, class: "form-select", required: true %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :task_type, style: "display: block" %>
-    <%= form.text_field :task_type %>
+  <div class="row mb-2">
+    <%= form.label :description, "Description *", class: "col-sm-4 col-form-label" %>
+    <div class="col-sm-8">
+      <%= form.text_area :description, class: "form-control", required: true %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :estimation, style: "display: block" %>
-    <%= form.number_field :estimation %>
+  <div class="row mb-2">
+    <%= form.label :task_type, "Type *", class: "col-sm-4 col-form-label" %>
+    <div class="col-sm-8">
+      <%= form.select :task_type, [['Please, select an option', nil], 'Feature', 'Chore', 'Bug', 'Release'], {}, class: "form-select", required: true %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :priority, style: "display: block" %>
-    <%= form.text_field :priority %>
+  <div class="row mb-2">
+    <%= form.label :estimation, class: "col-sm-4 col-form-label" %>
+    <div class="col-sm-8">
+      <%= form.number_field :estimation, class: "form-control" %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
+  <div class="row mb-2">
+    <%= form.label :priority, "Priority *", class: "col-sm-4 col-form-label" %>
+    <div class="col-sm-8">
+      <%= form.select :priority, [['Please, select an option', nil], 'Low', 'Medium', 'High'], {}, class: "form-select", required: true %>
+    </div>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="mb-1">
+    <%= form.submit class: "btn btn-primary"%>
   </div>
 <% end %>

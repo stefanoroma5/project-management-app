@@ -1,42 +1,40 @@
-<div id="<%= dom_id task %>">
-  <p>
-    <strong>Start date:</strong>
-    <%= task.start_date %>
-  </p>
-
-  <p>
-    <strong>End date:</strong>
-    <%= task.end_date %>
-  </p>
-
-  <p>
-    <strong>status:</strong>
-    <%= task.status %>
-  </p>
-
-  <p>
-    <strong>Description:</strong>
-    <%= task.description %>
-  </p>
-
-  <p>
-    <strong>Type:</strong>
-    <%= task.task_type %>
-  </p>
-
-  <p>
-    <strong>Estimation:</strong>
-    <%= task.estimation %>
-  </p>
-
-  <p>
-    <strong>Priority:</strong>
-    <%= task.priority %>
-  </p>
-
-  <p>
-    <strong>Title:</strong>
-    <%= task.title %>
-  </p>
-
+<div id="<%= dom_id task %>", class="card" style="width: 18rem; margin-bottom: 1rem;">
+  
+  <div class="card-header">
+    <h4>
+      <%= task.title %>
+    </h4>
+  </div>
+  
+  <div class="card-body">
+    <p class="card-text">
+      <strong>Start date:</strong>
+      <%= task.start_date %>
+    </p>
+    <p class="card-text">
+      <strong>End date:</strong>
+      <%= task.end_date %>
+    </p>
+    <p class="card-text">
+      <strong>status:</strong>
+      <%= task.status %>
+    </p>
+    <p class="card-text" style="max-height: 100px; overflow: auto;">
+      <strong>Description:</strong>
+      <%= task.description %>
+    </p>
+    <p class="card-text">
+      <strong>Type:</strong>
+      <%= task.task_type %>
+    </p>
+    <p class="card-text">
+      <strong>Estimation:</strong>
+      <%= task.estimation %>
+    </p>
+    <p class="card-text">
+      <strong>Priority:</strong>
+      <%= task.priority %>
+    </p>
+    <%= link_to "Show this task", project_task_path(@project, task), class: "btn btn-outline-primary" %>
+  </div>
 </div>
