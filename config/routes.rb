@@ -1,16 +1,17 @@
 Rails.application.routes.draw do
-  devise_for :developers, :controllers => { registrations: 'developers/registrations' }
+  devise_for :developers, controllers: {registrations: "developers/registrations"}
 
   resources :labels
-  resources :tasks
-  resources :projects
+  resources :projects do
+    resources :tasks
+  end
   resources :developer_projects
   resources :notifications
 
   # config/routes.rb
   resources :projects do
     member do
-      patch 'cancel'
+      patch "cancel"
     end
   end
 
