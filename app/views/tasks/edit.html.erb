@@ -3,15 +3,9 @@
 </div>
 
 <div class="container">
-  <div class="card bg-body-tertiary" style="width: 26rem; margin: 0 auto;">
+  <div class="card bg-body-tertiary" style="margin: 0 auto 1rem;">
     <div class="card-body">
       <%= render "form", task: @task %>
     </div>
   </div>
-</div>
-
-<br>
-
-<div>
-  <%= link_to "Back to tasks", project_tasks_path(@project) %>
 </div>

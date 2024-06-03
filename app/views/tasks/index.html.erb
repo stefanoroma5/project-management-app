@@ -1,31 +1,69 @@
 <p style="color: green"><%= notice %></p>
-
 <div class="container my-4 text-center">
   <h1>Tasks</h1>
 </div>
 
-<!-- Cards con i progetti da mostrare -->
+<!-- Cards con i task da mostrare -->
 <div id="tasks" class="container">
-
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg justify-content-center", style="margin-bottom: 1rem;">
-  <div class="container-fluid">
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-        <li class="nav-item", style="padding-eft: 2rem; padding-right: 2rem;">
-          <%= link_to "Back to projects", "http://127.0.0.1:3000/projects?mode=m", class: "nav-link active" %>
-        </li>
-      </ul>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg justify-content-center", style="margin-bottom: 1rem;">
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item", style="padding-eft: 2rem; padding-right: 2rem;">
+            <%= link_to "Back to projects", "http://127.0.0.1:3000/projects?mode=m", class: "nav-link active" %>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
 
   <%= link_to "New task", new_project_task_path(@project), class: "btn btn-primary" %>
 
   <div class="row" style="margin-top: 1rem;">
     <% @tasks.each do |task| %>
       <div class="col">
-        <%= render task %>
+        <div id="<%= dom_id task %>", class="card" style="width: 20rem; margin-bottom: 1rem;">
+          <div class="card-header">
+            <h4>
+              <%= task.title %>
+            </h4>
+          </div>
+          <div class="card-body">
+            <p class="card-text">
+              <strong>Start date:</strong>
+              <%= task.start_date %>
+            </p>
+            <p class="card-text">
+              <strong>End date:</strong>
+              <%= task.end_date %>
+            </p>
+            <p class="card-text">
+              <strong>Status:</strong>
+              <%= task.status %>
+            </p>
+            <p class="card-text">
+              <strong>Description:</strong>
+              <div class="card" style="height: 4rem; overflow: auto;">
+                <p style="margin: 5px;"><%= task.description %></p>
+              </div>
+            </p>
+            <p class="card-text">
+              <strong>Type:</strong>
+              <%= task.task_type %>
+            </p>
+            <p class="card-text">
+              <strong>Estimation:</strong>
+              <%= task.estimation %>
+            </p>
+            <p class="card-text">
+              <strong>Priority:</strong>
+              <%= task.priority %>
+            </p>
+
+            <%= link_to "Show this task", project_task_path(@project, task), class: "btn btn-outline-primary" %>
+          </div>
+        </div>
       </div>
     <% end %>
   </div>
