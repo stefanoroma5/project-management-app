@@ -60,10 +60,11 @@
   <div class="row mb-2">
     <%= form.label :developer_tasks, "Owners", class: "col-sm-3 col-form-label" %>
     <div class="col-sm-9">
-      <% @task.project.developers.each do |developer| %>
+      <% @task.project.developer_projects.where(status: 'Active').each do |developer_project| %>
+        <% developer = developer_project.developer %>
         <div class="form-check">
           <%= form.check_box :developer_ids, { multiple: true, class: "form-check-input", checked: @task.developer_ids.include?(developer.id) }, developer.id, nil %>
-          <%= form.label :developer_ids, "#{developer.name} <#{developer.email}>", class: "form-check-label" %>
+          <%= form.label :developer_ids, "#{developer.name} #{developer.lastname} (#{developer.email})", class: "form-check-label" %>
         </div>
       <% end %>
     </div>
