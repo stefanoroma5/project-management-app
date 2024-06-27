@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
   resources :labels
   resources :projects do
-    resources :tasks
+    resources :tasks #do
+    #   resources :developer_tasks
+    # end
   end
   resources :developer_projects
   resources :notifications

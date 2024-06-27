@@ -1,80 +1,98 @@
-<%= form_with(model: [@project, task]) do |form| %>
-  <% if task.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
-      <ul>
-        <% task.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+<div class="card-body">
+  <%= form_with(model: [@project, task]) do |form| %>
+    <% if task.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
+        <ul>
+          <% task.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="row mb-2">
+      <%= form.label :title, "Title *", class: "col-sm-3 col-form-label" %>
+      <div class="col-sm-9">
+        <%= form.text_field :title, class: "form-control", required: true %>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <%= form.label :start_date, class: "col-sm-3 col-form-label" %>
+      <div class="col-sm-9">
+        <%= form.date_field :start_date, class: "form-control" %>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <%= form.label :end_date, class: "col-sm-3 col-form-label" %>
+      <div class="col-sm-9">
+        <%= form.date_field :end_date, class:"form-control" %>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <%= form.label :status, "Status *", class: "col-sm-3 col-form-label"%>
+      <div class="col-sm-9">
+        <%= form.select :status, [['Please, select an option', nil], 'Unstarted', 'Started', 'Finished'], {}, class: "form-select", required: true %>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <%= form.label :description, "Description *", class: "col-sm-3 col-form-label" %>
+      <div class="col-sm-9">
+        <%= form.text_area :description, class: "form-control", required: true, rows: 10 %>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <%= form.label :task_type, "Type *", class: "col-sm-3 col-form-label" %>
+      <div class="col-sm-9">
+        <%= form.select :task_type, [['Please, select an option', nil], 'Feature', 'Chore', 'Bug', 'Release'], {}, class: "form-select", required: true %>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <%= form.label :estimation, class: "col-sm-3 col-form-label" %>
+      <div class="col-sm-9">
+        <%= form.number_field :estimation, class: "form-control" %>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <%= form.label :priority, "Priority *", class: "col-sm-3 col-form-label" %>
+      <div class="col-sm-9">
+        <%= form.select :priority, [['Please, select an option', nil], 'Low', 'Medium', 'High'], {}, class: "form-select", required: true %>
+      </div>
+    </div>
+    <div class="row justify-content-between">
+      <div class="col-2">
+        <%= link_to "Cancel", project_tasks_path(@project), class: "btn btn-danger" %>
+      </div>
+      <div class="col-2">
+        <%= form.submit class: "btn btn-primary"%>
+      </div>
     </div>
   <% end %>
-  <div class="row mb-2">
-    <%= form.label :title, "Title *", class: "col-sm-3 col-form-label" %>
-    <div class="col-sm-9">
-      <%= form.text_field :title, class: "form-control", required: true %>
-    </div>
-  </div>
-  <div class="row mb-2">
-    <%= form.label :start_date, class: "col-sm-3 col-form-label" %>
-    <div class="col-sm-9">
-      <%= form.date_field :start_date, class: "form-control" %>
-    </div>
-  </div>
-  <div class="row mb-2">
-    <%= form.label :end_date, class: "col-sm-3 col-form-label" %>
-    <div class="col-sm-9">
-      <%= form.date_field :end_date, class:"form-control" %>
-    </div>
-  </div>
-  <div class="row mb-2">
-    <%= form.label :status, "Status *", class: "col-sm-3 col-form-label"%>
-    <div class="col-sm-9">
-      <%= form.select :status, [['Please, select an option', nil], 'Unstarted', 'Started', 'Finished'], {}, class: "form-select", required: true %>
-    </div>
-  </div>
-  <div class="row mb-2">
-    <%= form.label :description, "Description *", class: "col-sm-3 col-form-label" %>
-    <div class="col-sm-9">
-      <%= form.text_area :description, class: "form-control", required: true, rows: 10 %>
-    </div>
-  </div>
-  <div class="row mb-2">
-    <%= form.label :task_type, "Type *", class: "col-sm-3 col-form-label" %>
-    <div class="col-sm-9">
-      <%= form.select :task_type, [['Please, select an option', nil], 'Feature', 'Chore', 'Bug', 'Release'], {}, class: "form-select", required: true %>
-    </div>
-  </div>
-  <div class="row mb-2">
-    <%= form.label :estimation, class: "col-sm-3 col-form-label" %>
-    <div class="col-sm-9">
-      <%= form.number_field :estimation, class: "form-control" %>
-    </div>
-  </div>
-  <div class="row mb-2">
-    <%= form.label :priority, "Priority *", class: "col-sm-3 col-form-label" %>
-    <div class="col-sm-9">
-      <%= form.select :priority, [['Please, select an option', nil], 'Low', 'Medium', 'High'], {}, class: "form-select", required: true %>
-    </div>
-  </div>
-  <div class="row mb-2">
-    <%= form.label :developer_tasks, "Owners", class: "col-sm-3 col-form-label" %>
-    <div class="col-sm-9">
-      <% @task.project.developer_projects.where(status: 'Active').each do |developer_project| %>
-        <% developer = developer_project.developer %>
-        <div class="form-check">
-          <%= form.check_box :developer_ids, { multiple: true, class: "form-check-input", checked: @task.developer_ids.include?(developer.id) }, developer.id, nil %>
-          <%= form.label :developer_ids, "#{developer.name} #{developer.lastname} (#{developer.email})", class: "form-check-label" %>
+</div>
+
+<!-- Owner's form -->
+<div class="card-body">
+  <%= form_with(model: [@project, @task, @developer_tasks], local: true) do |form| %>
+    <% if @developer_tasks.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(developer_tasks.errors.count, "error") %> prohibited this task from being saved:</h2>
+        <ul>
+          <% @developer_tasks.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="row mb-2">
+        <%= form.label :developer_ids, "Owner", class: "col-sm-3 col-form-label" %>
+        <div class="col-sm-9">
+          <% @developer_tasks.where(status: 'Active').each do |developer_task| %>
+            <% developer = developer_task.developer %>
+            <div class="form-check">
+              <%= form.check_box :developer_ids, { multiple: true, class: "form-check-input", checked: @developer_task.task.developer_ids.include?(developer.id) }, developer.id, nil %>
+              <%= form.label :developer_ids, "#{developer.name} #{developer.lastname} (#{developer.email})", class: "form-check-label" %>
+            </div>
+          <% end %>
         </div>
-      <% end %>
     </div>
-  </div>
-  <div class="row justify-content-between">
-    <div class="col-2">
-      <%= link_to "Cancel", project_tasks_path(@project), class: "btn btn-danger" %>
-    </div>
-    <div class="col-2">
-      <%= form.submit class: "btn btn-primary"%>
-    </div>
-  </div>
-<% end %>
+  <%end%>
+</div>

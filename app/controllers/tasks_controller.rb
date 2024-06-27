@@ -15,35 +15,21 @@ class TasksController < ApplicationController
   def new
     @project = Project.find(params[:project_id])
     @task = @project.tasks.build
+    @developer_tasks = @task.developer_tasks.build
   end
 
   # GET /tasks/1/edit
   def edit
+    @developer_tasks = @task.developer_tasks
   end
 
   # POST /tasks or /tasks.json
   def create
     @project = Project.find(params[:project_id])
     @task = @project.tasks.build(task_params)
-    notification = nil
-
-    # Add developers to the task
-    if params[:task][:developer_ids].present?
-      developer_ids = params[:task][:developer_ids]
-      developer_ids.each do |developer_id|
-        @task.developer_tasks.build(developer_id: developer_id)
-        developer = Developer.find(developer_id)
-        notification = developer.notifications.build(text: "You have been assigned to the task " + @task.title + " of project " + @project.title, read: false)
-      end
-    end
 
     respond_to do |format|
       if @task.save
-        if !notification.nil? && notification.save
-          puts "Notification created"
-        else
-          puts notification.errors.full_messages
-        end
         format.html { redirect_to project_task_url(@project, @task), notice: "Task was successfully created." }
         format.json { render :show, status: :created, location: @task }
       else
@@ -56,24 +42,9 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1 or /tasks/1.json
   def update
     respond_to do |format|
-      # destroy all developers assigned to the task
       if @task.update(task_params)
-        @task.developer_tasks.destroy_all
-
-        if params[:task][:developer_ids].present?
-          developer_ids = params[:task][:developer_ids]
-          developer_ids.each do |developer_id|
-            @task.developer_tasks.build(developer_id: developer_id)
-          end
-        end
-
-        if @task.save
-          format.html { redirect_to project_task_url(@project, @task), notice: "Task was successfully updated." }
-          format.json { render :show, status: :ok, location: @task }
-        else
-          format.html { render :edit, status: :unprocessable_entity }
-          format.json { render json: @task.errors, status: :unprocessable_entity }
-        end
+        format.html { redirect_to project_task_url(@project, @task), notice: "Task was successfully updated." }
+        format.json { render :show, status: :ok, location: @task }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @task.errors, status: :unprocessable_entity }
@@ -104,6 +75,6 @@ class TasksController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def task_params
-    params.require(:task).permit(:start_date, :end_date, :status, :description, :task_type, :estimation, :priority, :title, developer_tasks: [])
+    params.require(:task).permit(:start_date, :end_date, :status, :description, :task_type, :estimation, :priority, :title, developer_tasks_attributes: [:developer_id, :task_id, developer_ids: []])
   end
 end
