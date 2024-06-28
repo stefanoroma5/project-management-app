@@ -1,9 +1,9 @@
 class Task < ApplicationRecord
   belongs_to :project
-  has_many :developer_tasks, dependent: :destroy
-  has_many :developers, through: :developer_tasks, dependent: :nullify
-  has_many :tasks_labels, dependent: :destroy
-  has_many :labels, through: :tasks_labels, dependent: :nullify
+  has_many :developer_tasks
+  has_many :developers, through: :developer_tasks
+  has_many :tasks_labels
+  has_many :labels, through: :tasks_labels
 
   validates :description,
     presence: true
