@@ -136,10 +136,14 @@ class TasksController < ApplicationController
 
   # DELETE /tasks/1 or /tasks/1.json
   def destroy
+    @task.developer_tasks.each do |developer_task|
+      developer_task.developer.notifications.create(text: "The task #{@task.title} of project #{@project.title} has been deleted.", read: false)
+    end
+
     @task.destroy
 
     respond_to do |format|
-      format.html { redirect_to project_task_url(@project, @task), notice: "Task was successfully destroyed." }
+      format.html { redirect_to project_tasks_path(@project), notice: "Task was successfully destroyed." }
       format.json { head :no_content }
     end
   end
