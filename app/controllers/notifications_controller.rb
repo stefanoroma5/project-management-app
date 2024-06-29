@@ -10,8 +10,8 @@ class NotificationsController < ApplicationController
     respond_to do |format|
       if @notification.update(notification_params)
 
-        format.html { redirect_to notifications_url(@notifications)}
-        format.json { render :show, status: :ok, location: @pnotifications }
+        format.html { redirect_to notifications_url(@notifications) }
+        format.json { render :show, status: :ok, location: @notifications }
 
       else
 
