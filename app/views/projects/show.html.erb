@@ -12,9 +12,6 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
         <li class="nav-item", style="padding-eft: 2rem; padding-right: 2rem;">
-          <%= link_to "New project", new_project_path, class: "nav-link active" %>
-        </li>
-        <li class="nav-item", style="padding-eft: 2rem; padding-right: 2rem;">
           <%= link_to "Back to projects", "http://127.0.0.1:3000/projects?mode=m", class: "nav-link active" %>
         </li>
       </ul>
@@ -22,7 +19,7 @@
   </div>
 </nav>
 
-<div class="container">
+<div class="container", style="margin-bottom: 1rem;">
 
   <!-- Card di sinistra con le informazioni del progetto -->
   <div class="row align-items-md-stretch">
@@ -47,7 +44,11 @@
 
         <p class="card-text">
           <strong>Status:</strong>
-          <%= @project.status %>
+          <% if @project.status == "Cancelled" %>
+            <span style="color: red;"><%= @project.status %></span>
+          <% else %>
+            <%= @project.status %>
+          <% end %>
         </p>
 
         <p class="card-text">
@@ -72,7 +73,7 @@
               <%= button_to 'Delete Project', cancel_project_path(@project), method: :patch, data: { confirm: 'Sei sicuro?' }, class: "btn btn-outline-danger" %>
             </div>
           </div>
-        <%end%>        
+        <%end%>
       </div>
     </div>
 

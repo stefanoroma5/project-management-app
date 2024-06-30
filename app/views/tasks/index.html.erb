@@ -65,11 +65,11 @@
                 </ul>
               <% end %>
             </p>
-            <div class="row justify-content-around">
-              <div class="col-2">
+            <div class="row justify-content-between">
+              <div class="col-3">
                 <%= link_to "Show", project_task_path(@project, task), class: "btn btn-outline-primary" %>
               </div>
-              <div class="col-2">
+              <div class="col-3">
                 <%= link_to "Edit", edit_project_task_path(@project, task), class: "btn btn-outline-dark" %>
               </div>
             </div>
