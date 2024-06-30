@@ -1,7 +1,17 @@
-<div id="<%= dom_id label %>">
-  <p>
-    <strong>Name:</strong>
-    <%= label.name %>
-  </p>
-
+<div id="<%= dom_id label %>", class="card" style="width: 18rem; margin-bottom: 1rem;">
+  <div class="card-header">
+    <h4>
+      <%= label.name %>
+    </h4>
+  </div>
+  <div class="card-body">
+    <div class="row justify-content-around">
+      <div class="col-4">
+        <%= link_to "Edit", edit_label_path(label), class: "btn btn-outline-primary" %>
+      </div>
+      <div class="col-4">
+        <%= button_to "Destroy", label, method: :delete, method: :delete, class: "btn btn-outline-danger" %>
+      </div>
+    </div>
+  </div>
 </div>
