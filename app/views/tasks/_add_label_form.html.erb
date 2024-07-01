@@ -1,0 +1,4 @@
+<%= form_with(url: add_label_task_path(task), method: :post) do |form| %>
+  <%= form.select :label_id, options_for_select(@available_labels.collect { |label| [label.name, label.id] }), {}, {class: "form-select"} %>
+  <%= form.submit "Add Label", class: "btn btn-primary" %>
+<% end %>

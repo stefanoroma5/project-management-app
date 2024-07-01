@@ -1,0 +1,5 @@
+<%= form_with(url: add_developer_task_path(task), method: :post) do |form| %>
+  <%= form.label :developer_id, "Add Developer" %>
+  <%= form.select :developer_id, @available_developers.collect { |d| [d.name + ' ' + d.lastname + ' (' + d.email + ')', d.id] }, { include_blank: true } %>
+  <%= form.submit "Add" %>
+<% end %>

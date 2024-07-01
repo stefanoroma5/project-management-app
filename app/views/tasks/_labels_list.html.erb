@@ -1,0 +1,6 @@
+<% task.labels.each do |label| %>
+  <div>
+    <%= label.name %>
+    <%= button_to "Remove", remove_label_task_path(task, label_id: label.id), method: :delete, class: "btn btn-danger" %>
+  </div>
+<% end %>

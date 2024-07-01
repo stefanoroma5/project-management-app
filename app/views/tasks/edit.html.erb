@@ -1,3 +1,5 @@
+<p style="color: green"><%= notice %></p>
+
 <div class="container my-4 text-center">
   <h1>Editing task</h1>
 </div>
@@ -5,5 +7,15 @@
 <div class="container">
   <div class="card bg-body-tertiary" style="width: 50rem; margin: 0 auto 1rem;">
     <%= render "form", task: @task %>
+  </div>
+  <div class="card bg-body-tertiary" style="width: 50rem; margin: 0 auto 1rem;">
+    <h4>Owners</h4>
+    <%= render 'developers_list', task: @task %>
+    <%= render 'add_developer_form', project: @project, task: @task %>
+  </div>
+  <div class="card bg-body-tertiary" style="width: 50rem; margin: 0 auto 1rem;">
+    <h4>Labels</h4>
+    <%= render 'labels_list', task: @task %>
+    <%= render 'add_label_form', task: @task %>
   </div>
 </div>

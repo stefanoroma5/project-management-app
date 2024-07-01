@@ -58,18 +58,6 @@
         <%= form.select :priority, ['Low', 'Medium', 'High'], {selected: 'Low'}, class: "form-select", required: true %>
       </div>
     </div>
-    <div class="row mb-2">
-      <%= form.label :developer_tasks, "Owners", class: "col-sm-3 col-form-label" %>
-      <div class="col-sm-9">
-        <% @task.project.developer_projects.where(status: 'Active').each do |developer_project| %>
-          <% developer = developer_project.developer %>
-          <div class="form-check">
-            <%= check_box_tag "developer_ids[]", developer.id, @task.developer_ids.include?(developer.id), id: dom_id(developer, :select), class: "form-check-input" %>
-            <%= label_tag dom_id(developer, :select), "#{developer.name} #{developer.lastname} (#{developer.email})", class: "form-check-label" %>
-          </div>
-        <% end %>
-      </div>
-    </div>
     <div class="row justify-content-between">
       <div class="col-2">
         <%= link_to "Cancel", project_tasks_path(@project), class: "btn btn-danger" %>
