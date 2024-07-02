@@ -31,7 +31,7 @@
     <div class="row mb-2">
       <%= form.label :status, "Status *", class: "col-sm-3 col-form-label"%>
       <div class="col-sm-9">
-        <%= form.select :status, ['Unstarted', 'Started', 'Finished'], { selected: 'Unstarted' }, class: "form-select", required: true %>
+        <%= form.select :status, ['Unstarted', 'Started', 'Finished'], {}, class: "form-select", required: true %>
       </div>
     </div>
     <div class="row mb-2">
@@ -43,7 +43,7 @@
     <div class="row mb-2">
       <%= form.label :task_type, "Type *", class: "col-sm-3 col-form-label" %>
       <div class="col-sm-9">
-        <%= form.select :task_type, ['Feature', 'Chore', 'Bug', 'Release'], {selected: 'Feature'}, class: "form-select", required: true %>
+        <%= form.select :task_type, ['Feature', 'Chore', 'Bug', 'Release'], {}, class: "form-select", required: true %>
       </div>
     </div>
     <div class="row mb-2">
@@ -55,12 +55,12 @@
     <div class="row mb-2">
       <%= form.label :priority, "Priority *", class: "col-sm-3 col-form-label" %>
       <div class="col-sm-9">
-        <%= form.select :priority, ['Low', 'Medium', 'High'], {selected: 'Low'}, class: "form-select", required: true %>
+        <%= form.select :priority, ['Low', 'Medium', 'High'], {}, class: "form-select", required: true %>
       </div>
     </div>
     <div class="d-flex justify-content-between">
-        <%= link_to "Cancel", project_tasks_path(@project), class: "btn btn-danger" %>
-        <%= form.submit class: "btn btn-primary"%>
+      <%= link_to "Cancel", project_tasks_path(@project), class: "btn btn-danger" %>
+      <%= form.submit class: "btn btn-primary"%>
     </div>
   <% end %>
 </div>

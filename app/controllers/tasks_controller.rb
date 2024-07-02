@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
-  before_action :set_project, only: [:new, :create, :show, :edit, :update, :destroy, :index]
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:new, :create, :show, :edit, :update, :destroy, :index, :start, :finish]
+  before_action :set_task, only: [:show, :edit, :update, :destroy, :start, :finish]
 
   # GET /tasks or /tasks.json
   def index
@@ -82,7 +82,7 @@ class TasksController < ApplicationController
         format.html { redirect_to edit_project_task_path(@task.project, @task), notice: "Owner was successfully added." }
         format.json { render :show, status: :created, location: @task }
       else
-        format.html { render :new, alert: "Unprocessable entity. Errors: #{@task.errors.full_messages.join(", ")}", status: :unprocessable_entity }
+        format.html { render :show, alert: "Unprocessable entity. Errors: #{@task.errors.full_messages.join(", ")}", status: :unprocessable_entity }
         format.json { render json: @task.errors, status: :unprocessable_entity }
       end
     end
@@ -115,7 +115,7 @@ class TasksController < ApplicationController
         format.html { redirect_to edit_project_task_path(@task.project, @task), notice: "Label was successfully added." }
         format.json { render :show, status: :created, location: @task }
       else
-        format.html { render :new, alert: "Unprocessable entity. Errors: #{@task.errors.full_messages.join(", ")}", status: :unprocessable_entity }
+        format.html { render :show, alert: "Unprocessable entity. Errors: #{@task.errors.full_messages.join(", ")}", status: :unprocessable_entity }
         format.json { render json: @task.errors, status: :unprocessable_entity }
       end
     end
@@ -131,6 +131,33 @@ class TasksController < ApplicationController
     respond_to do |format|
       format.html { redirect_to edit_project_task_path(@task.project, @task), notice: "Label was successfully removed." }
       format.json { head :no_content }
+    end
+  end
+
+  def start
+    respond_to do |format|
+      if @task.update(status: "Started", start_date: Date.today, end_date: nil)
+        format.html { redirect_to project_tasks_path(@project), notice: "Task was successfully started." }
+        format.json { render :show, status: :created, location: @task }
+      else
+        format.html { render :show, alert: "Unprocessable entity. Errors: #{task.errors.full_messages.join(", ")}", status: :unprocessable_entity }
+        format.json { render json: @task.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def finish
+    respond_to do |format|
+      if @task.update(status: "Finished", end_date: Date.today)
+        @task.developer_tasks.each do |developer_task|
+          developer_task.developer.notifications.create(text: "The task #{@task.title} of project #{@project.title} has been finished.", read: false)
+        end
+        format.html { redirect_to project_tasks_path(@project), notice: "Task was successfully finished." }
+        format.json { render :show, status: :created, location: @task }
+      else
+        format.html { render :show, alert: "Unprocessable entity. Errors: #{task.errors.full_messages.join(", ")}", status: :unprocessable_entity }
+        format.json { render json: @task.errors, status: :unprocessable_entity }
+      end
     end
   end
 

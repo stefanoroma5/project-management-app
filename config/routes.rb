@@ -15,7 +15,12 @@ Rails.application.routes.draw do
 
   # Projects
   resources :projects do
-    resources :tasks
+    resources :tasks do
+      member do
+        patch "start"
+        patch "finish"
+      end
+    end
     member do
       patch "cancel"
     end
