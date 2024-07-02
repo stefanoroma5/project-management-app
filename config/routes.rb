@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     end
     member do
       patch "cancel"
+      patch "start"
+      patch "finish"
     end
   end
 

@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: %i[show edit update destroy]
+  before_action :set_project, only: %i[show edit update destroy start finish]
 
   # GET /projects or /projects.json
   # GET /projects?mode=m
@@ -57,26 +57,9 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
-
-        # se il progetto è stato terminato creo la notifica
-        if @project.status.eql?("Finished")
-          @collaborating_developers = Developer.joins(:developer_projects).where(developer_projects: {project_id: @project.id})
-          @collaborating_developers.each do |developer|
-            notification = developer.notifications.build(text: "The project " + @project.title + " was terminated", read: false)
-            if notification.save
-              puts "Notification created"
-            else
-              puts notification.errors.full_messages
-            end
-          end
-
-        end
-
         format.html { redirect_to project_url(@project), notice: "Project was successfully updated." }
         format.json { render :show, status: :ok, location: @project }
-
       else
-
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @project.errors, status: :unprocessable_entity }
       end
@@ -91,6 +74,33 @@ class ProjectsController < ApplicationController
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @project.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def start
+    respond_to do |format|
+      if @project.update(status: "Started", start_date: Date.today, end_date: nil)
+        format.html { redirect_to project_url(@project), notice: "Project was successfully started." }
+        format.json { render :show, status: :ok, location: @project }
+      else
+        format.html { render :show, status: :unprocessable_entity }
+        format.json { render json: @project.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def finish
+    respond_to do |format|
+      if @project.update(status: "Finished", end_date: Date.today)
+        @project.developer_projects.each do |developer_project|
+          developer_project.developer.notifications.create(text: "The project #{@project.title} has been finished.", read: false)
+        end
+        format.html { redirect_to project_url(@project), notice: "Project was successfully started." }
+        format.json { render :show, status: :ok, location: @project }
+      else
+        format.html { render :show, status: :unprocessable_entity }
         format.json { render json: @project.errors, status: :unprocessable_entity }
       end
     end

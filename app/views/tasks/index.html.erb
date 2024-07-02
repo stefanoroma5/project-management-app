@@ -76,7 +76,7 @@
               <div class="d-flex justify-content-between">
                 <%= link_to "Show", project_task_path(@project, task), class: "btn btn-outline-primary" %>
                 <%= link_to "Edit", edit_project_task_path(@project, task), class: "btn btn-outline-dark" %>
-                <% if task.status != "Started"%>
+                <% if !task.status.eql?("Started")%>
                   <%= button_to "Start", start_project_task_path(@project, task), method: :patch, class: "btn btn-outline-success" %>
                 <% else %>
                   <%= button_to "Finish", finish_project_task_path(@project, task), method: :patch, class: "btn btn-outline-success" %>
