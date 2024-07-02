@@ -13,27 +13,25 @@ class DeveloperProjectsController < ApplicationController
     @developer_project = DeveloperProject.new(developer: developer, project: project, email: params["email"], status: "Active")
 
     existing_record = DeveloperProject.find_by(developer: developer, project: project, email: params["email"])
-    
+
     respond_to do |format|
       if existing_record
         # Se il record esiste già, restituisco un messaggio di errore
         format.html { redirect_to project_url(project), alert: "Collaboratory already exist. Errors: #{@developer_project.errors.full_messages.join(", ")}", status: :unprocessable_entity }
         format.json { render json: project_url.errors, status: :unprocessable_entity }
-      else
-        if @developer_project.save
-          format.html { redirect_to project_url(project), notice: "Collaborator was successfully added." }
-          format.json { render :show, status: :created, location: project }
+      elsif @developer_project.save
+        format.html { redirect_to project_url(project), notice: "Collaborator was successfully added." }
+        format.json { render :show, status: :created, location: project }
 
-          notification = developer.notifications.build(text: "You have been added to the project " + project.title, read: false)
-          if notification.save
-            puts "Notification created"
-          else
-            puts notification.errors.full_messages
-          end
+        notification = developer.notifications.build(text: "You have been added to the project " + project.title, read: false)
+        if notification.save
+          puts "Notification created"
         else
-          format.html { redirect_to project_url(project), alert: "Unprocessable entity. Errors: #{@developer_project.errors.full_messages.join(", ")}", status: :unprocessable_entity }
-          format.json { render json: project_url.errors, status: :unprocessable_entity }
+          puts notification.errors.full_messages
         end
+      else
+        format.html { redirect_to project_url(project), alert: "Unprocessable entity. Errors: #{@developer_project.errors.full_messages.join(", ")}", status: :unprocessable_entity }
+        format.json { render json: project_url.errors, status: :unprocessable_entity }
       end
     end
   end

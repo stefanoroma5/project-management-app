@@ -100,7 +100,7 @@ class TasksController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to edit_project_task_path(@task.project, @task), notice: "Developer was successfully removed." }
+      format.html { redirect_to edit_project_task_path(@task.project, @task), notice: "Owner was successfully removed." }
       format.json { head :no_content }
     end
   end

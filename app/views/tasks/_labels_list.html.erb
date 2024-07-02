@@ -1,6 +1,20 @@
 <% task.labels.each do |label| %>
   <div>
-    <%= label.name %>
-    <%= button_to "Remove", remove_label_task_path(task, label_id: label.id), method: :delete, class: "btn btn-danger" %>
+    <ul>
+      <li>
+        <div class="row">
+          <div class="col-6">
+            <%= label.name %>
+          </div>
+          <div class="col-4">
+            <%= form_with(url: remove_label_task_path(task, label_id: label.id), method: :delete, local: true) do %>
+              <button type="submit" class="btn btn-sm btn-danger ms-2">
+                <i class="bi bi-trash"></i>
+              </button>
+            <% end %>
+          </div>
+        </div>
+      </li>
+    </ul>
   </div>
 <% end %>
