@@ -1,25 +1,17 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+john_doe:
+  email: john@example.com
+  encrypted_password: <%= Devise::Encryptor.digest(Developer, 'Password123!') %>
+  name: John
+  lastname: Doe
 
-one:
-  name: Mario
-  lastname: Rossi
-  email: mario.rossi@example.com
-  password: Pass$word1
+jane_doe:
+  email: jane@example.com
+  encrypted_password: <%= Devise::Encryptor.digest(Developer, 'Password123!') %>
+  name: Jane
+  lastname: Doe
 
-two:
-  name: Gino
-  lastname: Bianchi
-  email: gino.bianchi@example.com
-  password: Pass$word1
-
-three:
-  name: Laura
-  lastname: Verdi
-  email: laura.verdi@example.com
-  password: Pass$word1
-
-four:
-  name: Giulia
-  lastname: Neri
-  email: giulia.neri@example.com
-  password: Pass$word1
+another_developer:
+  email: another@example
+  encrypted_password: <%= Devise::Encryptor.digest(Developer, 'Password123!') %>
+  name: Another
+  lastname: Developer

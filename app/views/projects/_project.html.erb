@@ -1,32 +1,43 @@
-<div id="<%= dom_id project %>">
-  <p>
-    <strong>Title:</strong>
-    <%= project.title %>
-  </p>
+<div id="<%= dom_id project %>", class="card" style="width: 18rem; margin-bottom: 1rem;">
+  <div class="card-header">
+    <h4>
+      <%= project.title %>
+    </h4>
+  </div>
 
-  <p>
-    <strong>Deadline:</strong>
-    <%= project.deadline %>
-  </p>
+  <div class="card-body">
+    <p class="card-text">
+      <strong>Deadline:</strong>
+      <%= project.deadline %>
+    </p>
 
-  <p>
-    <strong>Customer:</strong>
-    <%= project.customer %>
-  </p>
+    <p class="card-text">
+      <strong>Customer:</strong>
+      <%= project.customer %>
+    </p>
 
-  <p>
-    <strong>Description:</strong>
-    <%= project.description %>
-  </p>
+    <p class="card-text">
+      <strong>Description:</strong>
+      <%= project.description %>
+    </p>
 
-  <p>
-    <strong>Start date:</strong>
-    <%= project.start_date %>
-  </p>
+    <p class="card-text">
+      <strong>Status:</strong>
+      <%= project.status %>
+    </p>
 
-  <p>
-    <strong>End date:</strong>
-    <%= project.end_date %>
-  </p>
+    <p class="card-text">
+      <strong>Start date:</strong>
+      <%= project.start_date %>
+    </p>
+
+    <p class="card-text">
+      <strong>End date:</strong>
+      <%= project.end_date %>
+    </p>
+
+    <%= link_to "Show this project", project, class: "btn btn-primary" %>
+
+  </div>
 
 </div>

@@ -11,37 +11,60 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
+  <div class="row mb-2">
+    <%= form.label :title, "Title *", class: "col-sm-4 col-form-label"%>
+    <div class="col-sm-8">
+      <%= form.text_field :title, class: "form-control", required: true %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :deadline, style: "display: block" %>
-    <%= form.date_field :deadline %>
+  <div class="row mb-2">
+    <%= form.label :deadline, "Deadline *", class: "col-sm-4 col-form-label"%>
+    <div class="col-sm-8">
+      <%= form.date_field :deadline, class: "form-control", required: true %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :customer, style: "display: block" %>
-    <%= form.text_field :customer %>
+  <div class="row mb-2">
+    <%= form.label :customer, "Customer *", class: "col-sm-4 col-form-label"%>
+    <div class="col-sm-8">
+      <%= form.text_field :customer, class: "form-control", required: true %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_field :description %>
+  <div class="row mb-2">
+    <%= form.label :description, "Description *", class: "col-sm-4 col-form-label"%>
+    <div class="col-sm-8">
+      <%= form.text_area :description, class: "form-control", required: true %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :start_date, style: "display: block" %>
-    <%= form.date_field :start_date %>
+  <div class="row mb-2">
+    <%= form.label :status, "Status *", class: "col-sm-4 col-form-label"%>
+    <div class="col-sm-8">
+      <%= form.select :status, [['Please, select an option', nil], 'Unstarted', 'Started', 'Finished'], {}, class: "form-select", required: true %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :end_date, style: "display: block" %>
-    <%= form.date_field :end_date %>
+  <div class="row mb-2">
+    <%= form.label :start_date, class: "col-sm-4 col-form-label"%>
+    <div class="col-sm-8">
+      <%= form.date_field :start_date, class: "form-control" %>
+    </div>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="row mb-2">
+    <%= form.label :end_date, class: "col-sm-4 col-form-label"%>
+    <div class="col-sm-8">
+      <%= form.date_field :end_date, class: "form-control" %>
+    </div>
   </div>
-<% end %>
+  
+  <div class="d-flex justify-content-between">
+      <% if project.persisted? %>
+        <%= link_to "Cancel", project, class: "btn btn-danger" %>
+      <% else %>
+        <%= link_to "Back to projects", "http://127.0.0.1:3000/projects?mode=m", class: "btn btn-danger" %>
+      <% end %>
+      <%= form.submit class: "btn btn-primary" %>
+  <% end %>

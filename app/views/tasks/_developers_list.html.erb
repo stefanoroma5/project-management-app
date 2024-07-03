@@ -1,0 +1,20 @@
+<% task.developers.each do |developer| %>
+  <div>
+    <ul>
+      <li>
+        <div class="row">
+          <div class="col-6">
+            <%= developer.name %> <%= developer.lastname %>
+          </div>
+          <div class="col-4">
+            <%= form_with(url: remove_developer_task_path(task, developer_id: developer.id), method: :delete, local: true) do %>
+              <button type="submit" class="btn btn-sm btn-danger ms-2">
+                <i class="bi bi-trash"></i>
+              </button>
+            <% end %>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+<% end %>

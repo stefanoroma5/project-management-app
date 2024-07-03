@@ -1,10 +1,143 @@
-<p style="color: green"><%= notice %></p>
+<!-- Benvenuto -->
+<p style="margin-left: 1%; margin-top: 1%"> Welcome <%= current_developer.name %> </p>
 
-<%= render @project %>
+<!-- Titolo -->
+<div class="container my-4 text-center">
+  <h1><%= @project.title %></h1>
+</div>
 
-<div>
-  <%= link_to "Edit this project", edit_project_path(@project) %> |
-  <%= link_to "Back to projects", projects_path %>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg justify-content-center", style="margin-bottom: 1rem;">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li class="nav-item", style="padding-eft: 2rem; padding-right: 2rem;">
+          <%= link_to "Back to projects", "http://127.0.0.1:3000/projects?mode=m", class: "nav-link active" %>
+        </li>
+        <li class="nav-item", style="padding-eft: 2rem; padding-right: 2rem;">
+          <%= link_to "Show tasks", project_tasks_path(@project), class: "nav-link active" %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-  <%= button_to "Destroy this project", @project, method: :delete %>
+<div class="container", style="margin-bottom: 1rem;">
+
+  <!-- Card di sinistra con le informazioni del progetto -->
+  <div class="row align-items-md-stretch">
+    <div class="col-md-6">
+      <div class="h-100 p-5 text-bg-dark rounded-3">
+        <h2>Project details</h2>
+
+        <p class="card-text">
+          <strong>Deadline:</strong>
+          <%= @project.deadline %>
+        </p>
+
+        <p class="card-text">
+          <strong>Customer:</strong>
+          <%= @project.customer %>
+        </p>
+
+        <p class="card-text">
+          <strong>Description:</strong>
+          <%= @project.description %>
+        </p>
+
+        <p class="card-text">
+          <strong>Status:</strong>
+          <% if @project.status == "Cancelled" %>
+            <span style="color: red;"><%= @project.status %></span>
+          <% else %>
+            <%= @project.status %>
+          <% end %>
+        </p>
+
+        <p class="card-text">
+          <strong>Start date:</strong>
+          <%= @project.start_date %>
+        </p>
+
+        <p class="card-text">
+          <strong>End date:</strong>
+          <%= @project.end_date %>
+        </p>
+
+        <% if !@project.status.eql?("Cancelled") && @project.developer.email.eql?(current_developer.email) %>
+          <div class="row row-cols-auto">
+            <div class="col">
+              <%= button_to "Edit", edit_project_path(@project), method: :get, class: "btn btn-outline-light" %>
+            </div>
+            <div class="col">
+              <% if !@project.status.eql?("Started")%>
+                <%= button_to 'Start', start_project_path(@project), method: :patch, class: "btn btn-outline-success" %>
+              <% else %>
+                <%= button_to 'Finish', finish_project_path(@project), method: :patch, class: "btn btn-outline-success" %>
+              <% end %>
+            </div>
+            <div class="col">
+              <%= button_to 'Delete', cancel_project_path(@project), method: :patch, data: { confirm: 'Sei sicuro?' }, class: "btn btn-outline-danger" %>
+            </div>
+          </div>
+        <%end%>
+      </div>
+    </div>
+
+    <!-- Card di destra per i collaboratori -->
+    <div class="col-md-6">
+      <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+        <h2>Collaborators</h2>
+
+        <!-- FORM PER CAMBIARE LO STATO DI UN COLLABORATORE -->
+        <% @developer_projects.each do |developer_project| %>
+          <%= form_with(model: developer_project) do |form| %>
+            <div>
+              <p>
+                <strong>Email:</strong>
+                <%= developer_project.email %>
+                <% if !@project.status.eql?("Finished") && !@project.status.eql?("Cancelled") && @project.developer.email.eql?(current_developer.email)%>
+                  <br>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <strong>Status:</strong>
+                      <%= developer_project.status %>
+                    </div>
+                    <div class="col-sm-8">
+                      <%= hidden_field_tag "project_id", @project.id %>
+                      <%= hidden_field_tag "developer_id", developer_project.developer_id %>
+                      <%= hidden_field_tag "email", developer_project.email %>
+                      <%= select_tag "status", options_for_select([['Select a status', nil], "Active", "Inactive" ]), class: "form-select"%>
+                    </div>
+                  </div>
+                  <%= form.submit "Change status collaborator", class: "btn btn-outline-secondary mt-3"%>
+                <% end %>
+              </p>
+            </div>
+          <% end %>
+          
+        <% end %>
+
+        <% if !@project.status.eql?("Finished") && !@project.status.eql?("Cancelled") && @project.developer.email.eql?(current_developer.email) %>
+          <!-- FORM PER AGGIUNGERE UN COLLABORATORE -->
+          <h5>Add a collaborator to this project</h5>
+          <%= form_for @developer_project do |form| %>
+            <div class="row">
+              <div class="col-sm-4">
+                <%= form.label :email, style: "display: block" %>
+              </div>
+              <div class="col-sm-8">
+                <%= text_field_tag "email", nil, class: "form-control"%>
+                <%= hidden_field_tag "project_id", @project.id %>
+              </div>
+            </div>
+
+            <div>
+              <%= form.submit "Add collaborator", class: "btn btn-outline-secondary mt-3"%>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,7 +1,5 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+frontend:
+  name: "Front-end"
 
-one:
-  name: frontend
-
-two:
-  name: backend
+backend:
+  name: "Back-end"

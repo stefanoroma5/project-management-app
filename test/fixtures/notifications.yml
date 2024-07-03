@@ -1,0 +1,9 @@
+notification_one:
+  text: "This is a notification."
+  read: true
+  developer: john_doe
+
+notification_two:
+  text: "This is another notification."
+  read: false
+  developer: jane_doe

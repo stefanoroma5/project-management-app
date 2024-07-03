@@ -1,10 +1,10 @@
-<h1>Editing label</h1>
-
-<%= render "form", label: @label %>
-
-<br>
-
-<div>
-  <%= link_to "Show this label", @label %> |
-  <%= link_to "Back to labels", labels_path %>
+<div class="container my-4 text-center">
+  <h1>Editing label</h1>
+</div>
+<div class="container">
+  <div class="card bg-body-tertiary", style="width: 33rem; margin: 0 auto 1rem;">
+    <div class="card-body">
+      <%= render "form", label: @label %>
+    </div>
+  </div>
 </div>

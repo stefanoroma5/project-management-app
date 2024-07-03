@@ -1,0 +1,9 @@
+  <%= form_with(url: add_developer_task_path(task), method: :post) do |form| %>
+  <div class="row mb-2">
+    <%= form.label :developer_id, "Add Developer", class: "col-sm-3 col-form-label" %>
+    <div class="col-sm-9">
+      <%= form.select :developer_id, @available_developers.collect { |d| [d.name + ' ' + d.lastname + ' (' + d.email + ')', d.id] }, { include_blank: true }, class: "form-select" %>
+    </div>
+  </div>
+  <%= form.submit "Add", class: "btn btn-primary" %>
+<% end %>

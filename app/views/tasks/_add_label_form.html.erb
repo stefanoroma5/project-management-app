@@ -1,0 +1,9 @@
+<%= form_with(url: add_label_task_path(task), method: :post) do |form| %>
+  <div class="row mb-2">
+    <%= form.label :label_id, "Add Label", class: "col-sm-3 col-form-label" %>
+    <div class="col-sm-9">
+      <%= form.select :label_id, options_for_select(@available_labels.collect { |label| [label.name, label.id] }), { include_blank: true }, {class: "form-select"} %>
+    </div>
+  </div>
+  <%= form.submit "Add", class: "btn btn-primary" %>
+<% end %>

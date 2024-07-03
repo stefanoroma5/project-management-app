@@ -1,14 +1,44 @@
-<p style="color: green"><%= notice %></p>
+<!-- Bnevenuto -->
+<p style="margin-left: 1%; margin-top: 1%"> Welcome <%= current_developer.name %> </p>
 
-<h1>Projects</h1>
-
-<div id="projects">
-  <% @projects.each do |project| %>
-    <%= render project %>
-    <p>
-      <%= link_to "Show this project", project %>
-    </p>
-  <% end %>
+<!-- Titolo -->
+<div class="container my-4 text-center">
+  <% if(params[:mode].eql? "m") %> 
+    <h1>Projects you manage</h1>
+  <% else %>
+    <h1>Projects in which you collaborate</h1>
+  <% end %> 
 </div>
 
-<%= link_to "New project", new_project_path %>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg justify-content-center", style="margin-bottom: 1rem;">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li class="nav-item", style="padding-eft: 2rem; padding-right: 2rem;">
+          <% if(params[:mode].eql? "m")%>
+            <%= link_to "Show Projects you collaborate for", "http://127.0.0.1:3000/projects?mode=c", class: "nav-link active"%> 
+          <% end%>
+          <% if(params[:mode].eql? "c")%>
+              <%= link_to "Show Projects you manage", "http://127.0.0.1:3000/projects?mode=m", class: "nav-link active"%> 
+          <% end%>
+        </li>
+        <li>
+          <%= link_to "Show Labels", labels_path, class: "nav-link active" %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Cards con i progetti da mostrare -->
+<div id="projects" class="container">
+<%= link_to "New project", new_project_path, class: "btn btn-primary" %>
+  <div class="row", style="margin-top: 1rem;">
+    <% @projects.each do |project| %>
+      <div class="col">
+        <%= render project %>
+      </div>
+    <% end %>
+  </div>
+</div>

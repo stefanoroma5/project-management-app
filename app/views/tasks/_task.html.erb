@@ -1,42 +1,60 @@
 <div id="<%= dom_id task %>">
-  <p>
-    <strong>Start date:</strong>
-    <%= task.start_date %>
-  </p>
-
-  <p>
-    <strong>End date:</strong>
-    <%= task.end_date %>
-  </p>
-
-  <p>
-    <strong>status:</strong>
-    <%= task.status %>
-  </p>
-
-  <p>
-    <strong>Description:</strong>
-    <%= task.description %>
-  </p>
-
-  <p>
-    <strong>Type:</strong>
-    <%= task.task_type %>
-  </p>
-
-  <p>
-    <strong>Estimation:</strong>
-    <%= task.estimation %>
-  </p>
-
-  <p>
-    <strong>Priority:</strong>
-    <%= task.priority %>
-  </p>
-
-  <p>
-    <strong>Title:</strong>
-    <%= task.title %>
-  </p>
-
+  <div class="card-header">
+    <h4>
+      <%= task.title %>
+    </h4>
+  </div>
+  <div class="card-body">
+    <p class="card-text">
+      <strong>Start date:</strong>
+      <%= task.start_date %>
+    </p>
+    <p class="card-text">
+      <strong>End date:</strong>
+      <%= task.end_date %>
+    </p>
+    <p class="card-text">
+      <strong>Status:</strong>
+      <%= task.status %>
+    </p>
+    <p class="card-text">
+      <strong>Description:</strong>
+      <div class="card">
+        <p style="margin: 5px;"><%= task.description %></p>
+      </div>
+    </p>
+    <p class="card-text">
+      <strong>Type:</strong>
+      <%= task.task_type %>
+    </p>
+    <p class="card-text">
+      <strong>Estimation:</strong>
+      <%= task.estimation %>
+    </p>
+    <p class="card-text">
+      <strong>Priority:</strong>
+      <%= task.priority %>
+    </p>
+    <p class="card-text">
+      <strong>Owners:</strong>
+      <% task.developers.each do |developer| %>
+        <ul>
+          <li><%= developer.name %> <%= developer.lastname %></li>
+        </ul>
+      <% end %>
+    </p>
+    <p class="card-text">
+      <strong>Labels:</strong>
+      <% task.labels.each do |label| %>
+        <ul>
+          <li><%= label.name %>
+        </ul>
+      <% end %>
+    </p>
+    
+    <div class="d-flex justify-content-between">
+      <%= link_to "Edit this task", edit_project_task_path(@project, @task), class: "btn btn-outline-primary" %>
+      <%= button_to "Destroy this task", project_task_path(@project, @task), method: :delete, class: "btn btn-outline-danger" %>
+    </div>
+  </div>
 </div>

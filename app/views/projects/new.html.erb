@@ -1,9 +1,16 @@
-<h1>New project</h1>
+<!-- Benvenuto -->
+<p style="margin-left: 1%; margin-top: 1%"> Welcome <%= current_developer.name %> </p>
 
-<%= render "form", project: @project %>
+<!-- Titolo -->
+<div class="container my-4 text-center">
+  <h1>New project</h1>
+</div>
 
-<br>
-
-<div>
-  <%= link_to "Back to projects", projects_path %>
+<!-- Card per la form di creazione del nuovo progetto -->
+<div class="container">
+  <div class="card bg-body-tertiary" style="width: 33rem; margin: 0 auto 1rem;">
+    <div class="card-body">
+      <%= render "form", project: @project %>
+    </div>
+  </div>
 </div>

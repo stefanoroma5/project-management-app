@@ -1,0 +1,14 @@
+<% if developer_signed_in? %> 
+  <div class="container my-5 text-center">
+    <p> Welcome <%= current_developer.name %> </p> 
+    <%= link_to "See your projects", "http://127.0.0.1:3000/projects?mode=m", class: "btn btn-primary my-5", role: "button" %>
+    <%= button_to "Sign out", destroy_developer_session_path, method: :delete, class: "btn btn-danger" %>
+  </div>
+  
+<% else %>
+  <div class="container my-5 text-center">
+    <h1>Manage yours projects</h1>
+    <p>Progetto per il Laboratorio di Industria 4.0 che ha l'obiettivo di simulare un sistema di gestione di progetti informatici. Ogni progetto è composto da vari task caratterizzati da labels e possiede diversi collaboratori oltre che a un project manager</p>
+    <%= link_to "Sign in", "http://127.0.0.1:3000/developers/sign_in", class: "btn btn-primary my-5", role: "button" %>
+  </div>
+<% end %>

@@ -1,21 +1,43 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+task_one:
+  start_date: <%= Date.today %>
+  end_date: <%= Date.today + 15.days %>
+  status: "Unstarted"
+  description: "Task one description."
+  task_type: "Feature"
+  estimation: 5
+  priority: "Low"
+  title: "Task One"
+  project: project_one
 
-one:
-  start_date: 2025-08-16
-  end_date: 2026-08-16
-  status: Unstarted
-  description: Add new table to landing page using material design
-  task_type: Feature
-  estimation: 1
-  priority: P2
-  title: Add new table
+task_two:
+  start_date: <%= Date.today + 1.day %>
+  end_date: <%= Date.today + 10.days %>
+  status: "Started"
+  description: "Task two description."
+  task_type: "Chore"
+  estimation: 3
+  priority: "Medium"
+  title: "Task Two"
+  project: project_two
 
-two:
-  start_date: 2025-08-16
-  end_date: 2026-08-16
-  status: Started
-  description: Fix bug when opening a new table in landing page
-  task_type: Bug
-  estimation: 2
-  priority: P1
-  title: Fix bug when opening a new table
+task_three:
+  start_date: <%= Date.today + 1.day %>
+  end_date: <%= Date.today + 10.days %>
+  status: "Finished"
+  description: "Task two description."
+  task_type: "Bug"
+  estimation: 3
+  priority: "High"
+  title: "Task Three"
+  project: project_two
+
+task_four:
+  start_date: <%= 1.months.ago %>
+  end_date: <%= Date.today + 10.days %>
+  status: "Finished"
+  description: "Task two description."
+  task_type: "Release"
+  estimation: 3
+  priority: "High"
+  title: "Task Two"
+  project: project_two

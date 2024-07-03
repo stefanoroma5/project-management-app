@@ -1,12 +1,23 @@
 class Task < ApplicationRecord
+  belongs_to :project
+  has_many :developer_tasks, dependent: :destroy
+  has_many :developers, through: :developer_tasks
+  has_many :tasks_labels, dependent: :destroy
+  has_many :labels, through: :tasks_labels
+
   validates :description,
     presence: true
   validates :title,
     presence: true
-  validates :end_date,
+  validates :task_type,
     presence: true,
-    comparison: {greater_than: :start_date}
-  validate :start_date_cannot_be_in_the_past, :end_date_cannot_be_in_the_past
+    inclusion: {in: %w[Feature Chore Bug Release], message: "%{value} is not a valid task type"}
+  validates :status,
+    presence: true,
+    inclusion: {in: %w[Unstarted Started Finished], message: "%{value} is not a valid status"}
+  validates :priority,
+    inclusion: {in: %w[Low Medium High], message: "%{value} is not a valid priority"}
+  validate :start_date_cannot_be_in_the_past, :end_date_cannot_be_in_the_past, :end_date_has_to_be_greater_than_start_date
 
   def start_date_cannot_be_in_the_past
     if start_date.present? && start_date < Date.today
@@ -20,6 +31,12 @@ class Task < ApplicationRecord
     end
   end
 
+  def end_date_has_to_be_greater_than_start_date
+    if start_date.present? && end_date.present? && start_date > end_date
+      errors.add(:end_date, "can't be earlier than start date")
+    end
+  end
+
   scope :feature, -> { where(task_type: "Feature") }
   scope :chore, -> { where(task_type: "Chore") }
   scope :bug, -> { where(task_type: "Bug") }
@@ -29,7 +46,12 @@ class Task < ApplicationRecord
   scope :started, -> { where(status: "Started") }
   scope :finished, -> { where(status: "Finished") }
 
-  scope :p1, -> { where(priority: "P1") }
-  scope :p2, -> { where(priority: "P2") }
-  scope :p1, -> { where(priority: "P3") }
+  scope :low, -> { where(priority: "Low") }
+  scope :medium, -> { where(priority: "Medium") }
+  scope :high, -> { where(priority: "High") }
+
+  scope :recent, ->(*args) {
+                   where("start_date > ?",
+                     (args.first || 2.weeks.ago))
+                 }
 end
