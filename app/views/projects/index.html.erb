@@ -36,7 +36,7 @@
 <%= link_to "New project", new_project_path, class: "btn btn-primary" %>
   <div class="row", style="margin-top: 1rem;">
     <% @projects.each do |project| %>
-      <div class="col">
+      <div class="col-4">
         <%= render project %>
       </div>
     <% end %>
