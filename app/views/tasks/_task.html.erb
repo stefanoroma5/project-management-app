@@ -1,60 +1,77 @@
-<div id="<%= dom_id task %>">
-  <div class="card-header">
-    <h4>
-      <%= task.title %>
-    </h4>
-  </div>
-  <div class="card-body">
-    <p class="card-text">
-      <strong>Start date:</strong>
-      <%= task.start_date %>
-    </p>
-    <p class="card-text">
-      <strong>End date:</strong>
-      <%= task.end_date %>
-    </p>
-    <p class="card-text">
-      <strong>Status:</strong>
-      <%= task.status %>
-    </p>
-    <p class="card-text">
-      <strong>Description:</strong>
-      <div class="card">
-        <p style="margin: 5px;"><%= task.description %></p>
+<% if local_assigns[:view_context] == 'index' %>
+  <div id="<%= dom_id task %>", class="card" style="margin-bottom: 1rem;">
+<% elsif local_assigns[:view_context] == 'show' %>
+  <div id="<%= dom_id task %>">
+<% end %>
+    <div class="card-header">
+      <h4>
+        <%= task.title %>
+      </h4>
+    </div>
+    <div class="card-body">
+      <p class="card-text">
+        <strong>Start date:</strong>
+        <%= task.start_date %>
+      </p>
+      <p class="card-text">
+        <strong>End date:</strong>
+        <%= task.end_date %>
+      </p>
+      <p class="card-text">
+        <strong>Status:</strong>
+        <%= task.status %>
+      </p>
+      <p class="card-text">
+        <strong>Description:</strong>
+        <% if local_assigns[:view_context] == 'index' %>
+          <div class="card" style="height: 5rem; overflow: auto;">
+            <p style="margin: 5px;"><%= task.description %></p>
+          </div>
+        <% elsif local_assigns[:view_context] == 'show' %>
+          <div class="card">
+            <p style="margin: 5px;"><%= task.description %></p>
+          </div>
+        <% end %>
+      </p>
+      <p class="card-text">
+        <strong>Type:</strong>
+        <%= task.task_type %>
+      </p>
+      <p class="card-text">
+        <strong>Estimation:</strong>
+        <%= task.estimation %>
+      </p>
+      <p class="card-text">
+        <strong>Priority:</strong>
+        <%= task.priority %>
+      </p>
+      <p class="card-text">
+        <strong>Owners:</strong>
+        <% task.developers.each do |developer| %>
+          <ul>
+            <li><%= developer.name %> <%= developer.lastname %></li>
+          </ul>
+        <% end %>
+      </p>
+      <p class="card-text">
+        <strong>Labels:</strong>
+        <% task.labels.each do |label| %>
+          <ul>
+            <li><%= label.name %></li>
+          </ul>
+        <% end %>
+      </p>
+      <div class="d-flex justify-content-between">
+        <% if local_assigns[:view_context] == 'index' %>
+          <%= link_to "Show", project_task_path(@project, task), class: "btn btn-outline-primary" %>
+        <% end %>
+        <%= link_to "Edit", edit_project_task_path(@project, task), class: "btn btn-outline-dark" %>
+        <% if !task.status.eql?("Started")%>
+          <%= button_to "Start", start_project_task_path(@project, task), method: :patch, class: "btn btn-outline-success" %>
+        <% else %>
+          <%= button_to "Finish", finish_project_task_path(@project, task), method: :patch, class: "btn btn-outline-success" %>
+        <% end %>
+        <%= button_to "Destroy", project_task_path(@project, task), method: :delete, class: "btn btn-outline-danger" %>
       </div>
-    </p>
-    <p class="card-text">
-      <strong>Type:</strong>
-      <%= task.task_type %>
-    </p>
-    <p class="card-text">
-      <strong>Estimation:</strong>
-      <%= task.estimation %>
-    </p>
-    <p class="card-text">
-      <strong>Priority:</strong>
-      <%= task.priority %>
-    </p>
-    <p class="card-text">
-      <strong>Owners:</strong>
-      <% task.developers.each do |developer| %>
-        <ul>
-          <li><%= developer.name %> <%= developer.lastname %></li>
-        </ul>
-      <% end %>
-    </p>
-    <p class="card-text">
-      <strong>Labels:</strong>
-      <% task.labels.each do |label| %>
-        <ul>
-          <li><%= label.name %>
-        </ul>
-      <% end %>
-    </p>
-    
-    <div class="d-flex justify-content-between">
-      <%= link_to "Edit this task", edit_project_task_path(@project, @task), class: "btn btn-outline-primary" %>
-      <%= button_to "Destroy this task", project_task_path(@project, @task), method: :delete, class: "btn btn-outline-danger" %>
     </div>
   </div>
-</div>
