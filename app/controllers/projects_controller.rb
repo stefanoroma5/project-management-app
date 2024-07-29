@@ -97,7 +97,7 @@ class ProjectsController < ApplicationController
         @project.developer_projects.each do |developer_project|
           developer_project.developer.notifications.create(text: "The project #{@project.title} has been finished.", read: false)
         end
-        format.html { redirect_to project_url(@project), notice: "Project was successfully started." }
+        format.html { redirect_to project_url(@project), notice: "Project was successfully finished." }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :show, status: :unprocessable_entity }
