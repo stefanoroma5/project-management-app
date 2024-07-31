@@ -10,7 +10,7 @@ task_one:
   project: project_one
 
 task_two:
-  start_date: <%= Date.today + 1.day %>
+  start_date: <%= Date.today %>
   end_date: <%= Date.today + 10.days %>
   status: "Started"
   description: "Task two description."

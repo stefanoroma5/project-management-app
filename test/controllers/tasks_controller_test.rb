@@ -14,7 +14,6 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
       estimation: 10,
       priority: "High"
     }
-    @developer_emails = [developers(:john_doe).email, developers(:jane_doe).email]
   end
 
   test "should get index" do
@@ -27,15 +26,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should create task with valid params and developers" do
-    assert_difference("Task.count") do
-      post project_tasks_url(@project), params: {task: @task_params, developer_emails: @developer_emails}
-    end
-
-    assert_redirected_to project_task_url(@project, Task.last)
-  end
-
-  test "should create task with valid params and no developers" do
+  test "should create task with valid params" do
     assert_difference("Task.count") do
       post project_tasks_url(@project), params: {task: @task_params}
     end
@@ -45,7 +36,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
 
   test "should not create task with invalid params" do
     assert_no_difference("Task.count") do
-      post project_tasks_url(@project), params: {task: @task_params.merge(title: nil), developer_emails: @developer_emails}
+      post project_tasks_url(@project), params: {task: @task_params.merge(title: nil)}
     end
 
     assert_response :unprocessable_entity
@@ -66,32 +57,76 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to project_task_url(@project, @task)
   end
 
-  test "should update the developers of the task" do
-    assert_difference("DeveloperTask.count", -1) do # perché nelle fixtures ci sono 2 developer associati e qui ne mettiamo solo uno
-      patch project_task_url(@project, @task), params: {task: {description: @task.description, end_date: @task.end_date, estimation: @task.estimation, priority: @task.priority, start_date: @task.start_date, status: @task.status, title: @task.title, task_type: @task.task_type}, developer_ids: [developers(:john_doe).id]}
+  test "should add a developer and send a notification" do
+    assert_difference("DeveloperTask.count", 1) do
+      assert_difference("Notification.count", 1) do
+        post add_developer_task_path(@task), params: {developer_id: developers(:john_doe).id}
+      end
     end
+
+    assert_redirected_to edit_project_task_url(@project, @task)
   end
 
-  # test "should destroy task and task_label and developer_task but not label project developer" do
-  #   assert_no_difference("Developer.count") do
-  #     assert_no_difference("Project.count") do
-  #       assert_no_difference("Label.count") do
-  #         assert_difference("DeveloperTask.count", -1) do
-  #           assert_difference("TasksLabel.count", -1) do
-  #             assert_difference("Task.count", -1) do
-  #               delete project_task_url(@project, @task)
-  #             end
-  #           end
-  #         end
-  #       end
-  #     end
-  #   end
+  test "should remove a developer and send a notification" do
+    assert_difference("DeveloperTask.count", -1) do
+      assert_difference("Notification.count", 1) do
+        delete remove_developer_task_path(@task), params: {developer_id: developers(:jane_doe).id}
+      end
+    end
 
-  #   assert_redirected_to project_task_url(@project, @task)
-  # end
+    assert_redirected_to edit_project_task_url(@project, @task)
+  end
+
+  test "should add a label" do
+    assert_difference("@task.labels.count", 1) do
+      post add_label_task_path(@task), params: {label_id: labels(:frontend).id}
+    end
+
+    assert_redirected_to edit_project_task_url(@project, @task)
+  end
+
+  test "should remove a label" do
+    assert_difference("@task.labels.count", -1) do
+      delete remove_label_task_path(@task), params: {label_id: labels(:backend).id}
+    end
+
+    assert_redirected_to edit_project_task_url(@project, @task)
+  end
+
+  test "should destroy task and task_label and developer_task but not label project developer" do
+    assert_no_difference("Developer.count") do
+      assert_no_difference("Project.count") do
+        assert_no_difference("Label.count") do
+          assert_difference("DeveloperTask.count", -2) do
+            assert_difference("TasksLabel.count", -1) do
+              assert_difference("Task.count", -1) do
+                delete project_task_url(@project, @task)
+              end
+            end
+          end
+        end
+      end
+    end
+
+    assert_redirected_to project_tasks_url(@project)
+  end
+
   test "should create a notification for each developer when task is destroyed" do
     assert_difference("Notification.count", 2) do
       delete project_task_url(@project, @task)
     end
+  end
+
+  test "should start task" do
+    patch start_project_task_path(@project, @task)
+    assert_redirected_to project_tasks_path(@project)
+  end
+
+  test "should finish task and send a notification for each developer" do
+    assert_difference("Notification.count", 2) do
+      patch finish_project_task_path(@project, @task)
+    end
+
+    assert_redirected_to project_tasks_path(@project)
   end
 end

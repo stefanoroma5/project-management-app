@@ -155,7 +155,7 @@ class TasksController < ApplicationController
         format.html { redirect_to project_tasks_path(@project), notice: "Task was successfully finished." }
         format.json { render :show, status: :created, location: @task }
       else
-        format.html { render :show, alert: "Unprocessable entity. Errors: #{task.errors.full_messages.join(", ")}", status: :unprocessable_entity }
+        format.html { render :show, alert: "Unprocessable entity. Errors: #{@task.errors.full_messages.join(", ")}", status: :unprocessable_entity }
         format.json { render json: @task.errors, status: :unprocessable_entity }
       end
     end

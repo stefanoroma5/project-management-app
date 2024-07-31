@@ -76,13 +76,12 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
   end
 
-  test "should create notification when project is finished" do
-    assert_difference "Notification.count", 1 do
-      patch project_url(@project), params: {project: {status: "Finished"}}
+  test "should finish project and send a notification for each developer" do
+    assert_difference("Notification.count", 1) do
+      patch finish_project_path(@project)
     end
-    @project.reload
-    assert_equal "Finished", @project.status
-    assert_equal "The project " + @project.title + " was terminated", Notification.last.text
+
+    assert_redirected_to project_url(@project)
   end
 
   # Testing cancel

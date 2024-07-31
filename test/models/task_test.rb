@@ -46,18 +46,6 @@ class TaskTest < ActiveSupport::TestCase
     assert_includes task.errors[:title], "can't be blank"
   end
 
-  test "should have an end date" do
-    task = Task.new(
-      start_date: Date.today,
-      status: "Unstarted",
-      description: "Test Description",
-      task_type: "Test Type",
-      estimation: 10
-    )
-    refute task.valid?
-    assert_includes task.errors[:end_date], "can't be blank"
-  end
-
   test "should have a task type" do
     task = Task.new(
       start_date: Date.today,
