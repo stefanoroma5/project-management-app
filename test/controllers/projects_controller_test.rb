@@ -48,7 +48,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
 
   # Testing create
   test "should create project and developer_project with valid attributes" do
-    assert_difference ["Project.count", "DeveloperProject.count"], 1 do
+    assert_difference ["Project.count", "DeveloperProject.count"], 2 do
       post projects_url, params: {project: @project_params}
     end
     assert_redirected_to project_url(Project.last)
