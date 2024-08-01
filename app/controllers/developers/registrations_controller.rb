@@ -5,7 +5,7 @@ class Developers::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_account_update_params, only: [:update]
 
   def after_sign_up_path_for(resource)
-    "http://127.0.0.1:3000/projects?mode=m"
+    projects_url(mode: "m")
   end
 
   # GET /resource/sign_up
@@ -61,9 +61,9 @@ class Developers::RegistrationsController < Devise::RegistrationsController
 
   # The path used after sign up. You need to overwrite this method
   # in your own RegistrationsController.
-  #def after_sign_up_path_for(resource)
+  # def after_sign_up_path_for(resource)
   #  after_sign_in_path_for(resource) if is_navigational_format?
-  #end
+  # end
 
   # The path used after sign up for inactive accounts.
   # def after_inactive_sign_up_path_for(resource)
