@@ -6,7 +6,7 @@ Each project is composed of several tasks characterised by labels and has severa
 ## Specifications
 - Language: Ruby
 - Framework: Rails
-- Continuous Integration: automated testing on pull requests
+- Continuous Integration: automated testing after merging in `main` branch
 - Continuous Deployment: automated deployment in DockerHub after merging in `main` branch
 
 ## How to start the app
