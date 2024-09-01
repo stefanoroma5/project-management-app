@@ -6,10 +6,6 @@ class LabelsController < ApplicationController
     @labels = Label.all
   end
 
-  # GET /labels/1 or /labels/1.json
-  def show
-  end
-
   # GET /labels/new
   def new
     @label = Label.new

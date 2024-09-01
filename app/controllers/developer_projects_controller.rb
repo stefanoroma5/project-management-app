@@ -1,12 +1,10 @@
 class DeveloperProjectsController < ApplicationController
   before_action :set_developer_project, only: %i[edit update destroy]
 
-  # GET /developer_projects/new
   def new
     @developer_project = DeveloperProject.new
   end
 
-  # POST /developer_projects or /developer_projects.json
   def create
     developer = Developer.find_by(email: params["email"])
     project = Project.find(params["project_id"])
@@ -36,7 +34,6 @@ class DeveloperProjectsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /developer_projects/1 or /developer_projects/1.json
   def update
     project = Project.find(params[:project_id])
     @developer_project.developer_id = params[:developer_id]
