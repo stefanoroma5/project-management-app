@@ -15,7 +15,7 @@ class DeveloperProjectsController < ApplicationController
     respond_to do |format|
       if existing_record
         # Se il record esiste già, restituisco un messaggio di errore
-        format.html { redirect_to project_url(project), alert: "Collaboratory already exist. Errors: #{@developer_project.errors.full_messages.join(", ")}", status: :unprocessable_entity }
+        format.html { redirect_to project_url(project), alert: "Collaborator already exists. Errors: #{@developer_project.errors.full_messages.join(", ")}", status: :unprocessable_entity }
         format.json { render json: project_url.errors, status: :unprocessable_entity }
       elsif @developer_project.save
         format.html { redirect_to project_url(project), notice: "Collaborator was successfully added." }
